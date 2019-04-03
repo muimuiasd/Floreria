@@ -1,13 +1,13 @@
 .logo {
 
-    height: 29px;
-    width: 83px;
+    height: 100px;
+    width: 85px;
     background-image: url(img/apu.png);
     background-repeat: no-repeat;
     text-indent: 100%;
     white-space: nowrap;
     overflow: hidden;
-    margin: 0;
+    margin-left: 25%;
 }
 
 

@@ -11,12 +11,5 @@
     "@babel/runtime": "^7.1.5",
     "bcrypt": "^3.0.5",
     "meteor-node-stubs": "^0.4.1"
-  },
-  "meteor": {
-    "mainModule": {
-      "client": "client/main.js",
-      "server": "server/main.js"
-    },
-    "testModule": "tests/main.js"
   }
 }
