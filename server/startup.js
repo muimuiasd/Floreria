@@ -11,7 +11,7 @@ Meteor.startup(function()
             }
         });
     }
-    if (Flowers.find.count() == 0)
+    if (Flowers.find().count() == 0)
     {
         flowerArray.forEach(function(flower) {
             Flowers.insert(flower);
