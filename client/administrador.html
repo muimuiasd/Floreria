@@ -1,0 +1,30 @@
+<template name="administrator">
+    <h1> Menu Administrador</h1>
+
+    <div class="div-categorias">
+      <h2>Menú Cateogrias </h2>
+    </div>
+    <div class="categorias">
+        <input type="text" name="nameCategory">
+        <input type="submit"  value="Agregar">
+        <input type="submit"  value="Eliminar">
+
+    </div>
+    <div class="container-categorias">
+      <ul>
+      {{#each taskcategorias}}
+        {{>taskcategorias}}
+      {{/each}}
+    </ul>
+
+    </div>
+    <h2>Menú Productos </h2>
+    <div class="productos">
+        <input type="text" name="nameProductos">
+        <input type="submit"  value="Agregar">
+        <input type="submit"  value="Eliminar">
+
+    </div>
+
+
+</template>

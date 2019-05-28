@@ -11,6 +11,10 @@ Template.header.events(
         "click #btn-ingresoCliente": function () {
             console.log("click en ingresoCliente");
             Router.go("/ingresoCliente");
+        },
+        "click #btn-administrator":function(){
+            console.log("click en administrador");
+            Router.go("/administrator");
         }
     }
 );
