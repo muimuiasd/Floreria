@@ -21,10 +21,14 @@ Meteor.startup(function()
 
 var flowerArray = [
     {
-        flower: "Margarita 001",
+        flower: "Margarita001",
         category: "Margaritas"
     },
     {
-        flower: "Margarita 002",
+        flower: "Margarita002",
+        category: "Margaritas"
+    },
+    {
+        flower: "Margarita003",
         category: "Margaritas"
     }];
