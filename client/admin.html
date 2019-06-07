@@ -1,0 +1,19 @@
+<template name="admin">
+    <h1> Menu Administrador</h1>
+    {{#if idUser}}
+        <div class="dashboard-admin">
+            <h2>¡Bienvenido/a!</h2>
+        </div>
+
+    {{else}}
+        <div class="login-admin">
+            <p>Correo</p>
+            <input class="input-mail"/>
+            <p>Contraseña</p>
+            <input class="input-password"/>
+            <button class="btn-login">Ingresar</button>
+        </div>
+    {{/if}}
+
+
+</template>
