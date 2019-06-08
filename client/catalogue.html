@@ -1,8 +1,33 @@
 <template name="catalogue">
     <h1>Catálogo de productos</h1>
-    <ul>
-        {{#each flores}}
-            <div id="_id">{{flower}}</div>
-        {{/each}}
-    </ul>
+    {{#each flowers}}
+        <div class="item-flower" id="{{_id}}">
+            <h3>{{name}}</h3>
+            <img src="{{img}}" style="width: 200px">
+            <div class="label-drophelp">
+                <span>Arrastra una foto aquí.</span>
+            </div>
+        </div>
+        {{#if idUser}}
+            <div class="btn-flower-remove" id="{{_id}}">
+                <p style="color: red; font-size: 20px"><b>Eliminar</b></p>
+            </div>
+
+        {{/if}}
+    {{/each}}
+    <br>
+    {{#if idUser}}
+        <div class="form-add-flower" style="background-color:lightpink">
+            <label>Nombre de flor</label>
+            <input id="input-flower-name"/>
+            <br>
+            <label>Descripción</label>
+            <input id="input-flower-description"/>
+            <div class="button-add-flower">
+                <img src="img/add.png" style="width: 50px">
+                <a>Agregar un elemento</a>
+            </div>
+        </div>
+
+    {{/if}}
 </template>

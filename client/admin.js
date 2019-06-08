@@ -1,3 +1,14 @@
+Template.admin.helpers({
+    idUser()
+    {
+        return Meteor.user() ? Meteor.user()._id : false;
+    },
+    name()
+    {
+        return Meteor.user().profile.name;
+    }
+});
+
 Template.admin.events({
     "click .btn-login"() {
         var login = $("#input-email").val();
@@ -6,18 +17,18 @@ Template.admin.events({
 
         if (_.isEmpty(login) || _.isEmpty(pass)) {
             Session.set("MensajesError", {
-                advertencia: [{
-                    item: "Login y Password son requeridos"
+                warning: [{
+                    item: "Se requiere correo y contraseña."
                 }]
             });
             error = true;
             DesvanecerErrores();
         }
 
-        if (!ValidarEmail(login)) {
+        if (!ValidateEmail(login)) {
             Session.set("MensajesError", {
-                advertencia: [{
-                    item: "Debe ingresar un email válido"
+                warning: [{
+                    item: "Debe ingresar un correo electrónico válido."
                 }]
             });
             error = true;
@@ -27,16 +38,11 @@ Template.admin.events({
         if (!error) {
             Meteor.loginWithPassword(login, pass, function (err, resp) {
                 if (!err) {
-                    toggle_visibility("foo");
-                    if(Meteor.user().profile && Meteor.user().profile.role < 3) {
-                        Router.go("/verificacionvehiculos");
-                    } else if(Meteor.user().profile && Meteor.user().profile.role==3) {
-                        Router.go("/listadoaseguradora");
-                    }
+                    console.log("Bienvenido!");
                 } else {
                     Session.set("MensajesError", {
-                        grave: [{
-                            item: "Login o Password incorrectos"
+                        warning: [{
+                            item: "Datos de inicio de sesión incorrectos."
                         }]
                     });
                     error = true;

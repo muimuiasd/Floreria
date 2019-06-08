@@ -1,6 +1,11 @@
 Template.header.helpers({
-    idUser() {
+    idUser()
+    {
         return Meteor.user() ? Meteor.user()._id : false;
+    },
+    name()
+    {
+        return Meteor.user().profile.name;
     }
 });
 Template.header.events(
@@ -12,7 +17,7 @@ Template.header.events(
             console.log("click en catálogo");
             Router.go("/catalogue");
         },
-        "click #btn-administrator":function(){
+        "click #btn-admin":function(){
             console.log("click en administrador");
             Router.go("/admin");
         }

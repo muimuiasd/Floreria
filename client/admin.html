@@ -1,16 +1,18 @@
 <template name="admin">
-    <h1> Menu Administrador</h1>
+
     {{#if idUser}}
-        <div class="dashboard-admin">
-            <h2>¡Bienvenido/a!</h2>
+        <div class="dashboard-admin" id="dashboard">
+            <h1>¡Bienvenido/a, {{name}}!</h1>
         </div>
 
     {{else}}
+        {{>errorMessages}}
         <div class="login-admin">
-            <p>Correo</p>
-            <input class="input-mail"/>
-            <p>Contraseña</p>
-            <input class="input-password"/>
+            <br>
+            <label>Correo</label>
+            <input id="input-email"/>
+            <label>Contraseña</label>
+            <input type="password" id="input-password"/>
             <button class="btn-login">Ingresar</button>
         </div>
     {{/if}}
