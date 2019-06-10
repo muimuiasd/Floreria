@@ -1,37 +1,24 @@
 <template name="header">
     <header>
-        <nav id="navbar">
-            <div id="nav-content" class="container">
-                <ul class="nav-menu">
-                    <li class="nav-menu-item">
-                        <div class="logo">
-                        </div>
-                    </li>
-                    <li id="btn-catalogue" class="nav-menu-item">
-                        <a>
+        <nav id="nav-1">
+
+                        <a class="logo link" >Las Lilas
+                              </a>
+                        <a id="btn-catalogue" class="links">
                             Catálogo
                         </a>
-                    </li>
 
-                    <li id="btn-custom" class="nav-menu-item">
-                        <a>
+                        <a id="btn-custom" class="links">
                             Arreglos personalizados
                         </a>
-                    </li>
+
                     {{#if idUser}}
-                    <li id="btn-admin" class="nav-menu-item">
-                        <a>
+
+                        <a  id="btn-admin" class="links">
                             {{name}}
                         </a>
-                    </li>
                     {{/if}}
 
-                </ul>
-
-            </div>
-
         </nav>
-
-
     </header>
 </template>
