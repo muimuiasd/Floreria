@@ -6,5 +6,5 @@ Meteor.publish("flowers", function() {
     return Flowers.find();
 });
 Meteor.publish("clients", function() {
-    return Clients.find();
+    return ClientList.find();
 });

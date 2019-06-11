@@ -157,6 +157,7 @@ Template.Cliente.helpers({
     },
     clients()
     {
+        return ClientList.find();
       //  return Clients.find().map(function (o, i) {
            /* let img = Images.findOne({
                 "meta.flowerId": o._id
@@ -265,13 +266,22 @@ Template.Cliente.events({
             doc.numeroE=$("#numeroE").val();
           doc.regionesE=$("#regionesE").val();   
            doc.comunasE=$("#comunasE").val();
+           let client = {};
              //  console.log("clic guardar"+nombre+apellido+email+calleP+numeroP+regionesP+comunasP+calleE+numeroE+regionesE+comunasE);
 
-          if(doc.nombre=="" || doc.apellido==""|| doc.email=="" || doc.calleE=="" || doc.calleP=="" || doc.numeroP=="" || doc.regionesP=="" || doc.comunasP=="" || doc.numeroE=="" || doc.regionesE=="" || doc.comunasE=="" || doc.regionesE== 'sin-region' || doc.regionesP== 'sin-region' || doc.comunasE == 'sin-comuna' || doc.comunasP == 'sin-comuna'){
-            swal ( "error" ,  "favor completar todos los campos" ,  "error" );
-        }else{
-            Meteor.call("AddClients", doc);
-        }
+          //if(doc.nombre=="" || doc.apellido==""|| doc.email=="" || doc.calleE=="" || doc.calleP=="" || doc.numeroP=="" || doc.regionesP=="" || doc.comunasP=="" || doc.numeroE=="" || doc.regionesE=="" || doc.comunasE=="" || doc.regionesE== 'sin-region' || doc.regionesP== 'sin-region' || doc.comunasE == 'sin-comuna' || doc.comunasP == 'sin-comuna')
+            //swal ( "error" ,  "favor completar todos los campos" ,  "error" );
+        Meteor.call("AddClients", client ? client._id : false, doc, function (err, resp)
+        {
+            if (!err)
+            {
+                if (!client._id)
+                {
+                    client._id = resp;
+                }
+                console.log(resp);
+            } else console.warn(err);
+        });
     },
     "click #btnCa":function(e){
 
@@ -294,6 +304,16 @@ Template.Cliente.events({
         $("#comunasE").val("sin-comuna");
         
 
+    },
+
+    "click .btn-client-delete": function(e)
+    {
+        console.log("id: " + e.currentTarget.id);
+        Meteor.call("RemoveClients", e.currentTarget.id, function (err, resp) {
+            if (!err) {
+                console.log("Cliente aniquilado " + resp);
+            }
+        });
     }
 
 });

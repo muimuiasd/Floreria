@@ -18,9 +18,9 @@ Meteor.methods({
     },
     AddClients(id, doc) {
         if (!id) {
-            return Clients.insert(doc);
+            return ClientList.insert(doc);
         }
-        Clients.update({
+        ClientList.update({
             _id: id
         }, {
             $set: doc
@@ -29,7 +29,7 @@ Meteor.methods({
     },
 
     RemoveClients(id) {
-        Clients.remove({
+        ClientList.remove({
             _id: id
         });
     }

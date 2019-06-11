@@ -23,3 +23,11 @@ Template.header.events(
         }
     }
 );
+Template.home.events(
+    {
+        "click #btn-catalogue": function () {
+            console.log("click en catálogo");
+            Router.go("/catalogue");
+        }
+    }
+);
