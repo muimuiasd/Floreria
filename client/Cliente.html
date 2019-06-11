@@ -19,97 +19,91 @@
             <form>
                     <div class="form-group">
                       <label for="email">Email </label>
-                 
+
                       <input type="email" class="form-control" id="email"  value="" placeholder="name@ejemplo.com">
-                      
+
                     </div>
                     <div class="form-group">
                             <label for="nombre">Nombre </label>
-                            <input type="text" class="form-control" value="juan" id="nombre" placeholder="ej: Juan">
+                            <input type="text" class="form-control" value="Juan" id="nombre" placeholder="ej: Juan">
                     </div>
                     <div class="form-group">
                             <label for="apellido">Apellido </label>
                             <input type="text" class="form-control"  value="Diaz" id="apellido" placeholder="ej: Diaz">
                     </div>
-                      
-                    <h2>Direccion Particular</h2>
+
+                    <h2>Dirección Particular</h2>
                     <div class="form-group">
                             <div class="form-row">
                                     <div class="col">
-                                            <label for="calleP">nombre de calle </label>
-                                            <input type="text" class="form-control" id="calleP" value="los jardines" placeholder="ej: juan paulino flores">
+                                            <label for="calleP">Nombre de calle </label>
+                                            <input type="text" class="form-control" id="calleP" value="Los jardines" placeholder="ej: juan paulino flores">
                                     </div>
                                     <div class="col">
-                                            <label for="numeroP">numero</label>
+                                            <label for="numeroP">Número</label>
                                             <input type="number" class="form-control" id="numeroP" value="899" placeholder="ej: 357">
                                     </div>
                                     <div class="col">
-                                          
-                                                    <label for="regionesP"> region</label>
+
+                                                    <label for="regionesP"> Región</label>
                                                     <select class="form-control" id="regionesP"></select>
-                                          
+
                                     </div>
                                     <div class="col">
-                                            <label for="comunasP">comuna</label>
+                                            <label for="comunasP">Comuna</label>
                                             <select class="form-control" id="comunasP"></select>
                                     </div>
                                   </div>
-                     
-                     
                     </div>
-                    <h2>Direccion de Envio</h2>
+                    <h2>Dirección de envío</h2>
                     <div class="form-group">
                             <div class="form-row">
                                     <div class="col">
-                                            <label for="calleE">nombre de calle </label>
-                                            <input type="text" class="form-control" id="calleE"  value="los jardines" placeholder="ej: juan paulino flores">
+                                            <label for="calleE">Nombre de calle </label>
+                                            <input type="text" class="form-control" id="calleE"  value="Los jardines" placeholder="ej: juan paulino flores">
                                     </div>
                                     <div class="col">
-                                            <label for="numeroE">numero</label>
+                                            <label for="numeroE">Número</label>
                                             <input type="number" class="form-control" id="numeroE" value="899" placeholder="ej: 357">
                                     </div>
                                     <div class="col">
-                                          
-                                                    <label for="regionesE"> region</label>
+
+                                                    <label for="regionesE"> Región</label>
                                                     <select class="form-control" id="regionesE"></select>
-                                          
+
                                     </div>
                                     <div class="col">
-                                            <label for="comunasE">comuna</label>
+                                            <label for="comunasE">Comuna</label>
                                             <select class="form-control" id="comunasE"></select>
                                     </div>
                                   </div>
-                     
-                     
                     </div>
-
-
                     <div class="form-group">
                            <div class="form-row">
                                <div style="text-align:center">
-                                    <button  id="btnG" type="button" class="btn btn-success">guardar</button>
-                                    <button  id="btnCa" type="button" class="btn btn-danger">borrar campos</button>
+                                    <button  id="btnG" type="button" class="btn btn-success">Guardar</button>
+                                    <button  id="btnCa" type="button" class="btn btn-danger">Borrar campos</button>
                             </div>
                            </div>
-                          
+
                           </div>
 
-                        
+
              </form>
 
       </div>
-      <h1 class="text-center">Lista cliente</h1>
+      <h1 class="text-center">Lista de clientes</h1>
       <hr>
       <div class="table-responsive">
               <table class="table table-striped">
                       <thead>
                         <tr>
-                          <th scope="col">nombre</th>
-                          <th scope="col">apellido</th>
-                          <th scope="col">email</th>
-                          <th scope="col">direccion particular</th>
-                          <th scope="col">direccion de envio</th>
-                          <th scope="col">editar/eliminar</th>
+                          <th scope="col">Nombre</th>
+                          <th scope="col">Apellido</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">Dirección particular</th>
+                          <th scope="col">Dirección de envío</th>
+                          <th scope="col">Editar/Eliminar</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -121,13 +115,13 @@
                           <td > <div class="row"> <div id="{{_id}}calleP">{{calleP}}</div>, Nro: <div id="{{_id}}numeroP">{{numeroP}}</div>,<div id="{{_id}}comunasP">{{comunasP}}</div>, <div id="{{_id}}regionesP" >{{regionesP}}</div></div> </td>
                           <td> <div class="row"> <div id="{{_id}}calleE">{{calleE}}</div>, Nro: <div id="{{_id}}numeroE">{{numeroE}}</div>,<div id="{{_id}}comunasE">{{comunasE}}</div>, <div id="{{_id}}regionesE" >{{regionesE}}</div></div></td>
                           <td><i class="fas fa-pencil-alt btn-client-update"   id="{{_id}}"></i>/<i class="fas fa-backspace btn-client-delete" id="{{_id}}"></i></td>
-                         
+
                         </tr>
                         {{/each}}
                       </tbody>
                     </table>
-      </div> 
-              
+      </div>
+
 
 
   </body>
@@ -142,7 +136,7 @@
 
 
 
- 
 
-    
+
+
 </template>
