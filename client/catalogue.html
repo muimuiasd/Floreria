@@ -15,46 +15,47 @@
 <div class="article-list">
 <div class="container">
   <div class="intro">
-           <h2 class="text-center">Catálogo</h2>
+           <h1 class="text-center">Catálogo</h1>
+            <br> <hr> <br>
        </div>
        <div class="row articles">
     {{#each flowers}}
+    
     <div class="col-sm-6 col-md-4 item">
-        <div class="item-flower" id="{{_id}}">
-            <h3 class="name text-center" >{{name}}</h3>
-            <img class="img-fluid" src="{{img}}" style="width: 300px">
-            <br>
-            <p class="description"><br>{{description}}<br><br></p><a href="#" class="action"></a>
-            <div class="label-drophelp">
-                <span>Arrastra una foto aquí.</span>
-            </div>
-            {{#if idUser}}
-                <div class="btn-flower-remove" id="{{_id}}">
-                    <p style="color: red; font-size: 10px center"><b>Eliminar</b></p>
+        <div class="card item-flower"  id="{{_id}}" style="width: 18rem;">
+            <img src="{{img}}" class="card-img-top" alt="imagen no encontrada">
+            <div class="card-body">
+                <div class="label-drophelp">
+                    <span>arrastre su imagen aqui</span>
                 </div>
-
-            {{/if}}
-        </div>
-
+              <h5 class="card-title">Nombre: {{name}}</h5>
+              <p class="card-text">Descripcion: {{description}}</p>
+              {{#if idUser}}
+              <a class="btn btn-danger btn-flower-remove" id="{{_id}}">Eliminar</a>
+              {{/if}}
+            </div>
+          </div>
+          <br><br>
       </div>
+
     {{/each}}
 
 
 
     {{#if idUser}}
 
-<div class="col-sm-6 col-md-4 item"> <a href="#"></a>
-        <div class="form-add-flower" style="background-color:lightpink">
-            <label>Nombre de flor</label>
-            <input id="input-flower-name"/>
-            <br>
-            <label>Descripción</label>
-            <input id="input-flower-description"/>
-            <div class="button-add-flower">
-                <img src="img/add.png" style="width: 150px">
-                <a>Agregar un elemento</a>
+<div class="col-sm-6 col-md-4 item">
+        <div class="card form-add-flower" style="background-color:lightpink; width:18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Nueva flor/categoria</h5>
+              <label>Nombre de flor/categoria</label>
+              <input id="input-flower-name"/>
+              <br>
+              <label>Descripción</label>
+              <input id="input-flower-description"/>
+              <a  class="btn btn-link button-add-flower"> <img src="img/add.png" style="width:100%"></a>
             </div>
-        </div>
+          </div>
   </div>
 
     {{/if}}
@@ -62,6 +63,6 @@
     </div>
       </div>
   </div>
-
+  <br><br>
       </body>
 </template>

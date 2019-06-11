@@ -314,6 +314,43 @@ Template.Cliente.events({
                 console.log("Cliente aniquilado " + resp);
             }
         });
+    },
+    "click .btn-client-update": function(e)
+    {// solo rellenar form 
+//let doc={};
+let id=e.currentTarget.id;
+/*doc._id=id;
+doc.nombre=$("#"+id+"nombre").html();
+doc.apellido=$("#"+id+"apellido").html();  
+   doc.email=$("#"+id+"email").html();
+  doc.calleP=$("#"+id+"calleP").html();
+ doc.numeroP=$("#"+id+"numeroP").html();
+doc.regionesP=$("#"+id+"regionesP").html(); 
+doc.comunasP=$("#"+id+"comunasP").html(); 
+  doc.calleE=$("#"+id+"calleE").html();
+ doc.numeroE=$("#"+id+"numeroE").html();
+doc.regionesE=$("#"+id+"regionesE").html();   
+doc.comunasE=$("#"+id+"comunasE").html();*/
+
+$("#nombre").val($("#"+id+"nombre").html());
+  
+$("#apellido").val($("#"+id+"apellido").html()); 
+$("#email").val($("#"+id+"email").html());
+   
+$("#calleP").val($("#"+id+"calleP").html());
+  
+$("#numeroP").val($("#"+id+"numeroP").html());
+ 
+$("#regionesP").val($("#"+id+"regionesP").html());
+$("#comunasP").val($("#"+id+"comunasP").html()); 
+$("#calleE").val($("#"+id+"calleE").html());
+  
+$("#numeroE").val($("#"+id+"numeroE").html());
+ 
+$("#regionesE").val($("#"+id+"regionesE").html());
+$("#comunasE").val($("#"+id+"comunasE").html());
+$("#textoCambiar").html("Editar Cliente");
+
     }
 
 });
