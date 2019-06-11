@@ -11,6 +11,7 @@ Template.Cliente.onCreated(function()
 
 Template.Cliente.rendered = function()
 {
+  
    // $(".label-drophelp").hide();
    var RegionesYcomunas = {
 
@@ -349,8 +350,7 @@ $("#numeroE").val($("#"+id+"numeroE").html());
  
 $("#regionesE").val($("#"+id+"regionesE").html());
 $("#comunasE").val($("#"+id+"comunasE").html());
-$("#textoCambiar").html("Editar Cliente");
-
+window.scrollTo(0,0);
     }
 
 });
