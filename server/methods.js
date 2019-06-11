@@ -15,5 +15,22 @@ Meteor.methods({
         Flowers.remove({
             _id: id
         });
+    },
+    AddClients(id, doc) {
+        if (!id) {
+            return Clients.insert(doc);
+        }
+        Clients.update({
+            _id: id
+        }, {
+            $set: doc
+        });
+        return id;
+    },
+
+    RemoveClients(id) {
+        Clients.remove({
+            _id: id
+        });
     }
 });

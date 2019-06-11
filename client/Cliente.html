@@ -1,0 +1,147 @@
+<template name="Cliente">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Ingreso de Clientes</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <script src="https://kit.fontawesome.com/5a83c48770.js"></script>
+  </head>
+  <body>
+
+      <H1 id="textoCambiar" class="text-center">Nuevo Cliente</H1>
+
+      <div class="container" >
+            <form>
+                    <div class="form-group">
+                      <label for="email">Email </label>
+                      <input type="email" class="form-control" id="email" placeholder="name@ejemplo.com">
+                      
+                    </div>
+                    <div class="form-group">
+                            <label for="nombre">Nombre </label>
+                            <input type="text" class="form-control" id="nombre" placeholder="ej: Juan">
+                    </div>
+                    <div class="form-group">
+                            <label for="apellido">Apellido </label>
+                            <input type="text" class="form-control" id="apellido" placeholder="ej: Diaz">
+                    </div>
+                      
+                    <h2>Direccion Particular</h2>
+                    <div class="form-group">
+                            <div class="form-row">
+                                    <div class="col">
+                                            <label for="calleP">nombre de calle </label>
+                                            <input type="text" class="form-control" id="calleP" placeholder="ej: juan paulino flores">
+                                    </div>
+                                    <div class="col">
+                                            <label for="numeroP">numero</label>
+                                            <input type="number" class="form-control" id="numeroP" placeholder="ej: 357">
+                                    </div>
+                                    <div class="col">
+                                          
+                                                    <label for="regionesP"> region</label>
+                                                    <select class="form-control" id="regionesP"></select>
+                                          
+                                    </div>
+                                    <div class="col">
+                                            <label for="comunasP">comuna</label>
+                                            <select class="form-control" id="comunasP"></select>
+                                    </div>
+                                  </div>
+                     
+                     
+                    </div>
+                    <h2>Direccion de Envio</h2>
+                    <div class="form-group">
+                            <div class="form-row">
+                                    <div class="col">
+                                            <label for="calleE">nombre de calle </label>
+                                            <input type="text" class="form-control" id="calleE" placeholder="ej: juan paulino flores">
+                                    </div>
+                                    <div class="col">
+                                            <label for="numeroE">numero</label>
+                                            <input type="number" class="form-control" id="numeroE" placeholder="ej: 357">
+                                    </div>
+                                    <div class="col">
+                                          
+                                                    <label for="regionesE"> region</label>
+                                                    <select class="form-control" id="regionesE"></select>
+                                          
+                                    </div>
+                                    <div class="col">
+                                            <label for="comunasE">comuna</label>
+                                            <select class="form-control" id="comunasE"></select>
+                                    </div>
+                                  </div>
+                     
+                     
+                    </div>
+
+
+                    <div class="form-group">
+                           <div class="form-row">
+                               <div style="text-align:center">
+                                    <button  id="btnG" type="button" class="btn btn-success">guardar</button>
+                                    <button  id="btnCa" type="button" class="btn btn-danger">borrar campos</button>
+                            </div>
+                           </div>
+                          
+                          </div>
+
+                        
+             </form>
+
+      </div>
+      <h1 class="text-center">Lista cliente</h1>
+      <hr>
+      <div class="table-responsive">
+              <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col">nombre</th>
+                          <th scope="col">apellido</th>
+                          <th scope="col">email</th>
+                          <th scope="col">direccion particular</th>
+                          <th scope="col">direccion de envio</th>
+                          <th scope="col">editar/eliminar</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                                {{#each clients}}
+                        <tr>
+                          <td>{{nombre}}</td>
+                          <td>{{apellido}}</td>
+                          <td>{{email}}</td>
+                          <td>{{calleP}}, Nro: {{numeroP}},{{comunasP}}, {{regionesP}}</td>
+                          <td>{{calleP}}, Nro: {{numeroE}},{{comunasE}}, {{regionesE}}</td>
+                          <td><i class="fas fa-pencil-alt" ></i>/<i class="fas fa-backspace"></i></td>
+                         
+                        </tr>
+                        {{/each}}
+                      </tbody>
+                    </table>
+      </div> 
+              
+
+
+  </body>
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+    
+</template>
