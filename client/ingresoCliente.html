@@ -1,46 +1,260 @@
 <template name="ingresoCliente">
-   <h1>ingreso de clientes</h1>
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Ingreso de Clientes</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  </head>
+  <body>
+      <H1 class="text-center">Ingreso Cliente</H1>
 
-<form action="submit">
+      <div class="container" >
+            <form>
+                    <div class="form-group">
+                      <label for="email">Email </label>
+                      <input type="email" class="form-control" id="email" placeholder="name@ejemplo.com">
+                    </div>
+                    <div class="form-group">
+                            <label for="nombre">nombre </label>
+                            <input type="text" class="form-control" id="nombre" placeholder="ej: Juan">
+                    </div>
+                    <div class="form-group">
+                            <label for="apellido">apellido </label>
+                            <input type="text" class="form-control" id="apellido" placeholder="ej: Diaz">
+                    </div>
+                      
+                    <h2>direccion particular</h2>
+                    <div class="form-group">
+                            <div class="form-row">
+                                    <div class="col">
+                                            <label for="calleP">nombre de calle </label>
+                                            <input type="text" class="form-control" id="calle" placeholder="ej: juan paulino flores">
+                                    </div>
+                                    <div class="col">
+                                            <label for="numeroP">numero</label>
+                                            <input type="number" class="form-control" id="calle" placeholder="ej: 357">
+                                    </div>
+                                    <div class="col">
+                                          
+                                                    <label for="regionesP"> region</label>
+                                                    <select class="form-control" id="regionesP"></select>
+                                          
+                                    </div>
+                                    <div class="col">
+                                            <label for="comunasP">comuna</label>
+                                            <select class="form-control" id="comunasP"></select>
+                                    </div>
+                                  </div>
+                     
+                     
+                    </div>
+                    <h2>direccion envio</h2>
+                    <div class="form-group">
+                            <div class="form-row">
+                                    <div class="col">
+                                            <label for="calleE">nombre de calle </label>
+                                            <input type="text" class="form-control" id="calle" placeholder="ej: juan paulino flores">
+                                    </div>
+                                    <div class="col">
+                                            <label for="numeroE">numero</label>
+                                            <input type="number" class="form-control" id="calle" placeholder="ej: 357">
+                                    </div>
+                                    <div class="col">
+                                          
+                                                    <label for="regionesE"> region</label>
+                                                    <select class="form-control" id="regionesE"></select>
+                                          
+                                    </div>
+                                    <div class="col">
+                                            <label for="comunasE">comuna</label>
+                                            <select class="form-control" id="comunasE"></select>
+                                    </div>
+                                  </div>
+                     
+                     
+                    </div>
 
 
-</form>
-    <div>
-        <h2>identificacion</h2>
-        <input type="text" placeholder="ingrese su nombre " id="nombrecliente" value="">
-        <br> 
-        <input type="text" placeholder="ingrese su apellido " id="apellidocliente" value="">
-        <br>
-        <input type="email" placeholder="Ejemplo@domino.XXX" id="emailUsuario" value="">
-    </div>
-    <div >
-            <h2>datos de direccion de envio</h2>
-            <input type="text" placeholder="ingrese nombre de calle"> 
-            <input type="number" placeholder="N° del hogar">
-            <input type="text" placeholder="comuna">
-            <br>
-            <p>no tiene numero <input type="checkbox" id="sinNumero"></p>
-            <p>Departamento<input type="checkbox" id="esDepto" ></p>
+                    <div class="form-group">
+                           <div class="form-row">
+                               <div style="text-align:center">
+                                    <button type="button" class="btn btn-success">guardar</button>
+                                    <button type="button" class="btn btn-danger">borrar campos</button>
+                            </div>
+                           </div>
+                          
+                          </div>
+
+                        
+             </form>
+
+      </div>
+        
+                
+              
 
 
-            <p>¿usar direccion tambien como particular?</p><input type="checkbox" id="rellenarEnvPart" >
-        <div>
-                <h2>datos de direccion particular</h2>
-                <input type="text" placeholder="ingrese nombre de calle"> 
-                <input type="number" placeholder="N° del hogar">
-                <input type="text" placeholder="comuna">
-                <br>
-                <p>no tiene numero</p><input type="checkbox" id="sinNumero">
-                <br>
-                <p>Departamento</p><input type="checkbox" id="esDepto" >
-        </div>
-
-    </div>
+  </body>
 
 
 
-    <script >
+
+<script>
+    jQuery(document).ready(function () {
+    var RegionesYcomunas = {
+
+        "regiones": [{
+                "NombreRegion": "Arica y Parinacota",
+                "comunas": ["Arica", "Camarones", "Putre", "General Lagos"]
+        },
+            {
+                "NombreRegion": "Tarapacá",
+                "comunas": ["Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"]
+        },
+            {
+                "NombreRegion": "Antofagasta",
+                "comunas": ["Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollagüe", "San Pedro de Atacama", "Tocopilla", "María Elena"]
+        },
+            {
+                "NombreRegion": "Atacama",
+                "comunas": ["Copiapó", "Caldera", "Tierra Amarilla", "Chañaral", "Diego de Almagro", "Vallenar", "Alto del Carmen", "Freirina", "Huasco"]
+        },
+            {
+                "NombreRegion": "Coquimbo",
+                "comunas": ["La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuña", "Illapel", "Canela", "Los Vilos", "Salamanca", "Ovalle", "Combarbalá", "Monte Patria", "Punitaqui", "Río Hurtado"]
+        },
+            {
+                "NombreRegion": "Valparaíso",
+                "comunas": ["Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar", "Isla de Pascua", "Los Andes", "Calle Larga", "Rinconada", "San Esteban", "La Ligua", "Cabildo", "Papudo", "Petorca", "Zapallar", "Quillota", "Calera", "Hijuelas", "La Cruz", "Nogales", "San Antonio", "Algarrobo", "Cartagena", "El Quisco", "El Tabo", "Santo Domingo", "San Felipe", "Catemu", "Llaillay", "Panquehue", "Putaendo", "Santa María", "Quilpué", "Limache", "Olmué", "Villa Alemana"]
+        },
+            {
+                "NombreRegion": "Región del Libertador Gral. Bernardo O’Higgins",
+                "comunas": ["Rancagua", "Codegua", "Coinco", "Coltauco", "Doñihue", "Graneros", "Las Cabras", "Machalí", "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requínoa", "San Vicente", "Pichilemu", "La Estrella", "Litueche", "Marchihue", "Navidad", "Paredones", "San Fernando", "Chépica", "Chimbarongo", "Lolol", "Nancagua", "Palmilla", "Peralillo", "Placilla", "Pumanque", "Santa Cruz"]
+        },
+            {
+                "NombreRegion": "Región del Maule",
+                "comunas": ["Talca", "ConsVtución", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Río Claro", "San Clemente", "San Rafael", "Cauquenes", "Chanco", "Pelluhue", "Curicó", "Hualañé", "Licantén", "Molina", "Rauco", "Romeral", "Sagrada Familia", "Teno", "Vichuquén", "Linares", "Colbún", "Longaví", "Parral", "ReVro", "San Javier", "Villa Alegre", "Yerbas Buenas"]
+        },
+            {
+                "NombreRegion": "Región del Biobío",
+                "comunas": ["Concepción", "Coronel", "Chiguayante", "Florida", "Hualqui", "Lota", "Penco", "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tomé", "Hualpén", "Lebu", "Arauco", "Cañete", "Contulmo", "Curanilahue", "Los Álamos", "Tirúa", "Los Ángeles", "Antuco", "Cabrero", "Laja", "Mulchén", "Nacimiento", "Negrete", "Quilaco", "Quilleco", "San Rosendo", "Santa Bárbara", "Tucapel", "Yumbel", "Alto Biobío", "Chillán", "Bulnes", "Cobquecura", "Coelemu", "Coihueco", "Chillán Viejo", "El Carmen", "Ninhue", "Ñiquén", "Pemuco", "Pinto", "Portezuelo", "Quillón", "Quirihue", "Ránquil", "San Carlos", "San Fabián", "San Ignacio", "San Nicolás", "Treguaco", "Yungay"]
+        },
+            {
+                "NombreRegion": "Región de la Araucanía",
+                "comunas": ["Temuco", "Carahue", "Cunco", "Curarrehue", "Freire", "Galvarino", "Gorbea", "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre las Casas", "Perquenco", "Pitrufquén", "Pucón", "Saavedra", "Teodoro Schmidt", "Toltén", "Vilcún", "Villarrica", "Cholchol", "Angol", "Collipulli", "Curacautín", "Ercilla", "Lonquimay", "Los Sauces", "Lumaco", "Purén", "Renaico", "Traiguén", "Victoria", ]
+        },
+            {
+                "NombreRegion": "Región de Los Ríos",
+                "comunas": ["Valdivia", "Corral", "Lanco", "Los Lagos", "Máfil", "Mariquina", "Paillaco", "Panguipulli", "La Unión", "Futrono", "Lago Ranco", "Río Bueno"]
+        },
+            {
+                "NombreRegion": "Región de Los Lagos",
+                "comunas": ["Puerto Montt", "Calbuco", "Cochamó", "Fresia", "FruVllar", "Los Muermos", "Llanquihue", "Maullín", "Puerto Varas", "Castro", "Ancud", "Chonchi", "Curaco de Vélez", "Dalcahue", "Puqueldón", "Queilén", "Quellón", "Quemchi", "Quinchao", "Osorno", "Puerto Octay", "Purranque", "Puyehue", "Río Negro", "San Juan de la Costa", "San Pablo", "Chaitén", "Futaleufú", "Hualaihué", "Palena"]
+        },
+            {
+                "NombreRegion": "Región Aisén del Gral. Carlos Ibáñez del Campo",
+                "comunas": ["Coihaique", "Lago Verde", "Aisén", "Cisnes", "Guaitecas", "Cochrane", "O’Higgins", "Tortel", "Chile Chico", "Río Ibáñez"]
+        },
+            {
+                "NombreRegion": "Región de Magallanes y de la AntárVca Chilena",
+                "comunas": ["Punta Arenas", "Laguna Blanca", "Río Verde", "San Gregorio", "Cabo de Hornos (Ex Navarino)", "AntárVca", "Porvenir", "Primavera", "Timaukel", "Natales", "Torres del Paine"]
+        },
+            {
+                "NombreRegion": "Región Metropolitana de Santiago",
+                "comunas": ["Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "San Joaquín", "San Miguel", "San Ramón", "Vitacura", "Puente Alto", "Pirque", "San José de Maipo", "Colina", "Lampa", "TilVl", "San Bernardo", "Buin", "Calera de Tango", "Paine", "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro", "Talagante", "El Monte", "Isla de Maipo", "Padre Hurtado", "Peñaflor"]
+        }]
+    }
     
+	var iRegion = 0;
+	var htmlRegion = '<option value="sin-region">Seleccione región</option><option value="sin-region">--</option>';
+	var htmlComunas = '<option value="sin-region">Seleccione comuna</option><option value="sin-region">--</option>';
+
+	jQuery.each(RegionesYcomunas.regiones, function () {
+		htmlRegion = htmlRegion + '<option value="' + RegionesYcomunas.regiones[iRegion].NombreRegion + '">' + RegionesYcomunas.regiones[iRegion].NombreRegion + '</option>';
+		iRegion++;
+	});
+
+	jQuery('#regionesP').html(htmlRegion);
+    jQuery('#comunasP').html(htmlComunas);
+    jQuery('#regionesE').html(htmlRegion);
+	jQuery('#comunasE').html(htmlComunas);
+
+	jQuery('#regionesP').change(function () {
+		var iRegiones = 0;
+		var valorRegion = jQuery(this).val();
+		var htmlComuna = '<option value="sin-comuna">Seleccione comuna</option><option value="sin-comuna">--</option>';
+		jQuery.each(RegionesYcomunas.regiones, function () {
+			if (RegionesYcomunas.regiones[iRegiones].NombreRegion == valorRegion) {
+				var iComunas = 0;
+				jQuery.each(RegionesYcomunas.regiones[iRegiones].comunas, function () {
+					htmlComuna = htmlComuna + '<option value="' + RegionesYcomunas.regiones[iRegiones].comunas[iComunas] + '">' + RegionesYcomunas.regiones[iRegiones].comunas[iComunas] + '</option>';
+					iComunas++;
+				});
+			}
+			iRegiones++;
+		});
+		jQuery('#comunasP').html(htmlComuna);
+	});
+	jQuery('#comunasP').change(function () {
+		if (jQuery(this).val() == 'sin-region') {
+			swal ( "error" ,  "seleccione region particular" ,  "error" );
+		} else if (jQuery(this).val() == 'sin-comuna') {
+            swal ( "error" ,  "seleccione comunaparticular" ,  "error" );
+		}
+	});
+	jQuery('#regionesP').change(function () {
+		if (jQuery(this).val() == 'sin-region') {
+            swal ( "error" ,  "seleccione region particular" ,  "error" );
+		}
+    });
+
+    jQuery('#regionesE').change(function () {
+		var iRegiones = 0;
+		var valorRegion = jQuery(this).val();
+		var htmlComuna = '<option value="sin-comuna">Seleccione comuna</option><option value="sin-comuna">--</option>';
+		jQuery.each(RegionesYcomunas.regiones, function () {
+			if (RegionesYcomunas.regiones[iRegiones].NombreRegion == valorRegion) {
+				var iComunas = 0;
+				jQuery.each(RegionesYcomunas.regiones[iRegiones].comunas, function () {
+					htmlComuna = htmlComuna + '<option value="' + RegionesYcomunas.regiones[iRegiones].comunas[iComunas] + '">' + RegionesYcomunas.regiones[iRegiones].comunas[iComunas] + '</option>';
+					iComunas++;
+				});
+			}
+			iRegiones++;
+		});
+		jQuery('#comunasE').html(htmlComuna);
+	});
+	jQuery('#comunasE').change(function () {
+		if (jQuery(this).val() == 'sin-region') {
+			swal ( "error" ,  "seleccione region de envio" ,  "error" );
+		} else if (jQuery(this).val() == 'sin-comuna') {
+            swal ( "error" ,  "seleccione comuna de envio" ,  "error" );
+		}
+	});
+	jQuery('#regionesE').change(function () {
+		if (jQuery(this).val() == 'sin-region') {
+            swal ( "error" ,  "seleccione region de envio" ,  "error" );
+		}
+	});
+
+
+});
+
+</script>
+
+
+
+
+
+
+
+
+ 
+
     
-    </script>
 </template>
