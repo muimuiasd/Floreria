@@ -24,7 +24,10 @@ Template.header.events(
         "click #btn-gestionarCliente": function () {
             Router.go("/Cliente");
         },
-       
+        "click #logout": function() {
+          Meteor.logout();
+        }
+
     }
 );
 Template.home.events(
