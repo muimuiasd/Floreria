@@ -1,4 +1,67 @@
 <template name="catalogue">
-    <h1>Catálogo de productos</h1>
 
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>catalogo</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </head>
+<body>
+
+
+<div class="article-list">
+<div class="container">
+  <div class="intro">
+           <h2 class="text-center">Catálogo</h2>
+       </div>
+       <div class="row articles">
+    {{#each flowers}}
+    <div class="col-sm-6 col-md-4 item">
+        <div class="item-flower" id="{{_id}}">
+            <h3 class="name text-center" >{{name}}</h3>
+            <img class="img-fluid" src="{{img}}" style="width: 300px">
+            <br>
+            <p class="description"><br>{{description}}<br><br></p><a href="#" class="action"></a>
+            <div class="label-drophelp">
+                <span>Arrastra una foto aquí.</span>
+            </div>
+            {{#if idUser}}
+                <div class="btn-flower-remove" id="{{_id}}">
+                    <p style="color: red; font-size: 10px center"><b>Eliminar</b></p>
+                </div>
+
+            {{/if}}
+        </div>
+
+      </div>
+    {{/each}}
+
+
+
+    {{#if idUser}}
+
+<div class="col-sm-6 col-md-4 item"> <a href="#"></a>
+        <div class="form-add-flower" style="background-color:lightpink">
+            <label>Nombre de flor</label>
+            <input id="input-flower-name"/>
+            <br>
+            <label>Descripción</label>
+            <input id="input-flower-description"/>
+            <div class="button-add-flower">
+                <img src="img/add.png" style="width: 150px">
+                <a>Agregar un elemento</a>
+            </div>
+        </div>
+  </div>
+
+    {{/if}}
+
+    </div>
+      </div>
+  </div>
+
+      </body>
 </template>

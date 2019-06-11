@@ -1,0 +1,21 @@
+<template name="admin">
+
+    {{#if idUser}}
+        <div class="dashboard-admin" id="dashboard">
+            <h1>¡Bienvenido/a, {{name}}!</h1>
+        </div>
+
+    {{else}}
+        {{>errorMessages}}
+        <div class="login-admin">
+            <br>
+            <label>Correo</label>
+            <input id="input-email"/>
+            <label>Contraseña</label>
+            <input type="password" id="input-password"/>
+            <button class="btn-login">Ingresar</button>
+        </div>
+    {{/if}}
+
+
+</template>

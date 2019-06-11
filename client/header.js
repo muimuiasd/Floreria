@@ -1,4 +1,13 @@
-
+Template.header.helpers({
+    idUser()
+    {
+        return Meteor.user() ? Meteor.user()._id : false;
+    },
+    name()
+    {
+        return Meteor.user().profile.name;
+    }
+});
 Template.header.events(
     {
         "click .logo": function(){
@@ -8,13 +17,17 @@ Template.header.events(
             console.log("click en catálogo");
             Router.go("/catalogue");
         },
-        "click #btn-ingresoCliente": function () {
-            console.log("click en ingresoCliente");
-            Router.go("/ingresoCliente");
-        },
-        "click #btn-administrator":function(){
+        "click #btn-admin":function(){
             console.log("click en administrador");
-            Router.go("/administrator");
+            Router.go("/admin");
+        }
+    }
+);
+Template.home.events(
+    {
+        "click #btn-catalogue": function () {
+            console.log("click en catálogo");
+            Router.go("/catalogue");
         }
     }
 );
