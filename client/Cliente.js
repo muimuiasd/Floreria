@@ -269,8 +269,8 @@ Template.Cliente.events({
            let client = {};
              //  console.log("clic guardar"+nombre+apellido+email+calleP+numeroP+regionesP+comunasP+calleE+numeroE+regionesE+comunasE);
 
-          //if(doc.nombre=="" || doc.apellido==""|| doc.email=="" || doc.calleE=="" || doc.calleP=="" || doc.numeroP=="" || doc.regionesP=="" || doc.comunasP=="" || doc.numeroE=="" || doc.regionesE=="" || doc.comunasE=="" || doc.regionesE== 'sin-region' || doc.regionesP== 'sin-region' || doc.comunasE == 'sin-comuna' || doc.comunasP == 'sin-comuna')
-            //swal ( "error" ,  "favor completar todos los campos" ,  "error" );
+          if(doc.nombre=="" || doc.apellido==""|| doc.email=="" || doc.calleE=="" || doc.calleP=="" || doc.numeroP=="" || doc.regionesP=="" || doc.comunasP=="" || doc.numeroE=="" || doc.regionesE=="" || doc.comunasE=="" || doc.regionesE== 'sin-region' || doc.regionesP== 'sin-region' || doc.comunasE == 'sin-comuna' || doc.comunasP == 'sin-comuna')
+            swal ( "error" ,  "favor completar todos los campos" ,  "error" );
         Meteor.call("AddClients", client ? client._id : false, doc, function (err, resp)
         {
             if (!err)
