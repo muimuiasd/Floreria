@@ -51,4 +51,5 @@ Template.admin.events({
             });
         }
     }
+
 });

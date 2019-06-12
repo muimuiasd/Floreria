@@ -20,7 +20,14 @@ Template.header.events(
         "click #btn-admin":function(){
             console.log("click en administrador");
             Router.go("/admin");
+        },
+        "click #btn-gestionarCliente": function () {
+            Router.go("/Cliente");
+        },
+        "click #logout": function() {
+          Meteor.logout();
         }
+
     }
 );
 Template.home.events(

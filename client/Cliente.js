@@ -11,6 +11,7 @@ Template.Cliente.onCreated(function()
 
 Template.Cliente.rendered = function()
 {
+  
    // $(".label-drophelp").hide();
    var RegionesYcomunas = {
 
@@ -166,6 +167,10 @@ Template.Cliente.helpers({
           //  o.img = img ? img.link() : "img/flower.png";
             //return o;
        // });
+    },
+    currentClient()
+    {
+        return Session.get("ClienteSeleccionado");
     }
 });
 
@@ -266,12 +271,12 @@ Template.Cliente.events({
             doc.numeroE=$("#numeroE").val();
           doc.regionesE=$("#regionesE").val();   
            doc.comunasE=$("#comunasE").val();
-           let client = {};
+           let client = Session.get("ClienteSeleccionado");
              //  console.log("clic guardar"+nombre+apellido+email+calleP+numeroP+regionesP+comunasP+calleE+numeroE+regionesE+comunasE);
 
-          //if(doc.nombre=="" || doc.apellido==""|| doc.email=="" || doc.calleE=="" || doc.calleP=="" || doc.numeroP=="" || doc.regionesP=="" || doc.comunasP=="" || doc.numeroE=="" || doc.regionesE=="" || doc.comunasE=="" || doc.regionesE== 'sin-region' || doc.regionesP== 'sin-region' || doc.comunasE == 'sin-comuna' || doc.comunasP == 'sin-comuna')
-            //swal ( "error" ,  "favor completar todos los campos" ,  "error" );
-        Meteor.call("AddClients", client ? client._id : false, doc, function (err, resp)
+          if(doc.nombre=="" || doc.apellido==""|| doc.email=="" || doc.calleE=="" || doc.calleP=="" || doc.numeroP=="" || doc.regionesP=="" || doc.comunasP=="" || doc.numeroE=="" || doc.regionesE=="" || doc.comunasE=="" || doc.regionesE== 'sin-region' || doc.regionesP== 'sin-region' || doc.comunasE == 'sin-comuna' || doc.comunasP == 'sin-comuna')
+            swal ( "error" ,  "favor completar todos los campos" ,  "error" );
+        else Meteor.call("AddClients", client ? client._id : false, doc, function (err, resp)
         {
             if (!err)
             {
@@ -284,7 +289,8 @@ Template.Cliente.events({
         });
     },
     "click #btnCa":function(e){
-
+        Session.set("ClienteSeleccionado", {});
+        /*
         $("#nombre").val("");
   
         $("#apellido").val(""); 
@@ -302,7 +308,7 @@ Template.Cliente.events({
          
         $("#regionesE").val("sin-region");
         $("#comunasE").val("sin-comuna");
-        
+        */
 
     },
 
@@ -314,6 +320,46 @@ Template.Cliente.events({
                 console.log("Cliente aniquilado " + resp);
             }
         });
+    },
+    "click .btn-client-update": function(e)
+    {// solo rellenar form
+let id=e.currentTarget.id;
+let doc = ClientList.findOne({"_id": id});
+console.log(doc.nombre);
+Session.set("ClienteSeleccionado", doc);
+
+/*doc._id=id;
+doc.nombre=$("#"+id+"nombre").html();
+doc.apellido=$("#"+id+"apellido").html();  
+   doc.email=$("#"+id+"email").html();
+  doc.calleP=$("#"+id+"calleP").html();
+ doc.numeroP=$("#"+id+"numeroP").html();
+doc.regionesP=$("#"+id+"regionesP").html(); 
+doc.comunasP=$("#"+id+"comunasP").html(); 
+  doc.calleE=$("#"+id+"calleE").html();
+ doc.numeroE=$("#"+id+"numeroE").html();
+doc.regionesE=$("#"+id+"regionesE").html();   
+doc.comunasE=$("#"+id+"comunasE").html();*/
+/*
+$("#nombre").val($("#"+id+"nombre").html());
+  
+$("#apellido").val($("#"+id+"apellido").html()); 
+$("#email").val($("#"+id+"email").html());
+   
+$("#calleP").val($("#"+id+"calleP").html());
+  
+$("#numeroP").val($("#"+id+"numeroP").html());
+ 
+$("#regionesP").val($("#"+id+"regionesP").html());
+$("#comunasP").val($("#"+id+"comunasP").html()); 
+$("#calleE").val($("#"+id+"calleE").html());
+  
+$("#numeroE").val($("#"+id+"numeroE").html());
+ 
+$("#regionesE").val($("#"+id+"regionesE").html());
+$("#comunasE").val($("#"+id+"comunasE").html());
+*/
+window.scrollTo(0,0);
     }
 
 });
