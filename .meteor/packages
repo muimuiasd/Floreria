@@ -25,3 +25,4 @@ iron:router
 underscore
 session
 ostrio:files
+tsega:bootstrap3-datetimepicker

@@ -24,6 +24,10 @@ Template.header.events(
         "click #btn-gestionarCliente": function () {
             Router.go("/Cliente");
         },
+        "click #pedido": function () {
+            Router.go("/Pedido");
+            console.log("click en administrador");
+        },
         "click #logout": function() {
           Meteor.logout();
         }
