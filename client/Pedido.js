@@ -1,17 +1,13 @@
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 Template.Pedido.onCreated(function()
 {
   
 });
 
 Template.Pedido.rendered = function()
-{
- // $('.datetimepicker').each(function(){
-   // $(this).datetimepicker(); 
+{  
 
-    
-//});
-
+  $('.datetimepicker').datetimepicker();
 };
 
 
@@ -42,29 +38,40 @@ Template.Pedido.helpers({
 });
 
 Template.Pedido.events({
-"changue #seleccionarCliente": function(e){
+"change #seleccionarCliente": function(e){
 
   // el cliente debe mostrarse en el cuadro de abajo
   //InfoClienteString
-  console.log("entro a evento changue")
+  if($("#seleccionarCliente").val()!="seleccione"){
   let id=$("#seleccionarCliente").val();
-  let docSelect=ClientList.findOne(id);
-  console.log(docSelect);
-}
+  let docSelect=ClientList.findOne({"_id":id});
 
-  ,
-  "changue #seleccionarProducto": function(e){
+$("#InfoClienteString").val(docSelect.nombre+" "+docSelect.apellido);
+}else{
+  swal ( "error" ,  "favor seleccione cliente" ,  "error" );
+
+}
+},
+  "change #seleccionarProducto": function(e){
  // el producto debe mostrarse en el cuadro de abajo
  // InfoProductoString
 
+
+ if($("#seleccionarProducto").val()!="seleccione"){
+ let id=$("#seleccionarProducto").val();
+ let docSelect=Flowers.findOne({"_id":id});
+console.log(docSelect);
+$("#InfoProductoString").val(docSelect.name+" " +docSelect.description);
+}else{
+  swal ( "error" ,  "favor seleccione producto" ,  "error" );
+
+}
+  },
+  "click #btngap":function(e){
+fechastring=$("#idInput").val();
+console.log(fechastring);
   }
-  
-    ,
-  "click #btnGp":function(e){
-     
-
-  
-
+/*fecha=new Date(fechastring);
 if(validarFormatoFecha(fecha)){
   if(existeFecha(fecha)){
        if(validarFechaMenorActual(fecha)){
@@ -112,8 +119,9 @@ else Meteor.call("AddClients", client ? client._id : false, doc, function (err, 
 },
 "click #btnCap":function(e){
 Session.set("ClienteSeleccionado", {});
-}
+}*/
 });
+
 function validarFormatoFecha(campo) {
   var RegExPattern = /^\d{1,2}\/\d{1,2}\/\d{2,4}$/;
   if ((campo.match(RegExPattern)) && (campo!='')) {
