@@ -30,7 +30,11 @@
                 </div>
               <h5 class="card-title">Nombre: {{name}}</h5>
               <p class="card-text">Descripcion: {{description}}</p>
+              <p class="card-text">categorias: {{categorias}}</p>
+
+
               {{#if idUser}}
+
               <a class="btn btn-danger btn-flower-remove" id="{{_id}}">Eliminar</a>
               {{/if}}
             </div>
@@ -50,9 +54,17 @@
               <h5 class="card-title">Nueva flor/categoria</h5>
               <label>Nombre de flor/categoria</label>
               <input id="input-flower-name"/>
-              <br>
               <label>Descripción</label>
               <input id="input-flower-description"/>
+              <label for="superSelect">Seleccione las categorias(ctrl para mas de una)</label>
+              <select multiple id="superSelect" >
+                
+                {{#each categorias}}
+                  <option value="{{Nombre}}">{{Nombre}}</option>
+                {{/each}}
+              </select>
+
+
               <a  class="btn btn-link button-add-flower"> <img src="img/add.png" style="width:100%"></a>
             </div>
           </div>

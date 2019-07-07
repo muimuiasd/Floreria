@@ -29,6 +29,11 @@ Template.catalogue.helpers({
             o.img = img ? img.link() : "img/flower.png";
             return o;
         });
+    },
+    categorias()
+    {
+        return MyCategories.find();
+   
     }
 });
 
@@ -92,11 +97,12 @@ Template.catalogue.events({
         let flower = Session.get("ActualFlower") ? Session.get("ActualFlower") : {};
         let name = $("#input-flower-name").val();
         let description = $("#input-flower-description").val();
-
+        let categorias=$("#superSelect").val();
+        console.log(categorias)
         doc.name = name;
         doc.description = description;
-
-        console.log(doc);
+        doc.categorias=categorias;
+        
         Meteor.call("AddFlower", flower ? flower._id : false, doc, function (err, resp)
         {
             if (!err)

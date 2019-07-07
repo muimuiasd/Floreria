@@ -26,12 +26,15 @@ Template.header.events(
         },
         "click #pedido": function () {
             Router.go("/Pedido");
-            console.log("click en administrador");
+         
         },
         "click #logout": function() {
           Meteor.logout();
+        },
+        "click #categoria": function () {
+            Router.go("/categoria");
+         
         }
-
     }
 );
 Template.home.events(
