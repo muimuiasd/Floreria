@@ -8,3 +8,6 @@ Meteor.publish("flowers", function() {
 Meteor.publish("clients", function() {
     return ClientList.find();
 });
+Meteor.publish("ListCategories", function() {
+    return MyCategories.find();
+});
