@@ -12,7 +12,7 @@ Template.catalogue.onCreated(function()
 Template.catalogue.rendered = function()
 {
     $(".label-drophelp").hide();
-    $("#modal-ingreso-flor").show();
+    $("#modal-ingreso-flor").hide();
 };
 
 Template.catalogue.helpers({
