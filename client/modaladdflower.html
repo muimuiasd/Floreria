@@ -10,18 +10,22 @@
                         <form>
                             <div class="form-group">
                                 <label for="nombre">Nombre de flor </label>
-                                <input type="text" class="form-control" id="input-flower-name" value="{{currentFlower.name}}" placeholder="Rosa">
+                                <input type="text" class="form-control" id="input-flower-name" placeholder="Rosa">
                                 <label for="nombre">Descripción </label>
-                                <input type="text" class="form-control" id="input-flower-description" value="{{currentFlower.description}}" placeholder="Flor multicolor traída desde la cordillera(?)">
+                                <input type="text" class="form-control" id="input-flower-description" placeholder="Flor multicolor traída desde la cordillera(?)">
                             </div>
-                            {{#if currentFlower.categorias}}
+                            {{#if categoriasFlor}}
                             <label>Categorías:</label>
+                            {{#each categoriasFlor}}
+                                {{nombre}}
+                                {{/each}}
+                                {{categoriasFlor}}
                             {{/if}}
                             <div class="form-group">
                                 <label for="nombre">Agregar categoría </label>
-                                <input type="text" class="form-control" id="nombre" placeholder="Comedia">
+                                <input type="text" class="form-control" id="input-category" placeholder="Comedia">
                             </div>
-                            <button  id="btn-add-category" type="button">Guardar</button>
+                            <button  id="btn-add-category" type="button">Agregar</button>
                             <div class="modal-footer">
                                 <div class="form-group">
                                     <div class="form-row">

@@ -31,10 +31,27 @@ Template.catalogue.helpers({
             return o;
         });
     },
-    categorias()
+    allCategories()
     {
-        return MyCategories.find();
-   
+        let catArray = [];
+        Flowers.find().map(function(f, i)
+        {
+            let arr = f.categorias;
+            arr.forEach(function(item)
+            {
+                if (!catArray.includes(item))
+                {
+                    catArray.push(item);
+                }
+            });
+        });
+        return catArray.map(function(c)
+        {
+            let cat = {
+                name: c
+            };
+            return cat;
+        });
     }
 });
 
@@ -98,12 +115,10 @@ Template.catalogue.events({
         let flower = Session.get("ActualFlower") ? Session.get("ActualFlower") : {};
         let name = $("#input-flower-name").val();
         let description = $("#input-flower-description").val();
-        let categorias=$("#superSelect").val();
-        console.log(categorias)
+        let categorias = Session.get("CategoriasFlor") ? Session.get("CategoriasFlor") : [];
         doc.name = name;
         doc.description = description;
-        doc.categorias=categorias;
-
+        doc.categorias = categorias;
         Meteor.call("AddFlower", flower ? flower._id : false, doc, function (err, resp)
         {
             if (!err)
@@ -119,6 +134,10 @@ Template.catalogue.events({
     "click .button-add-flower": function(e)
     {
         $("#modal-ingreso-flor").show();
+        $("#input-flower-name").val("");
+        $("#input-flower-description").val("");
+        $("#input-category").val("");
+        Session.set("CategoriasFlor", []);
         Session.set("FlorSeleccionada", {});
     },
     "click .btn-flower-remove"(e) {
@@ -130,6 +149,13 @@ Template.catalogue.events({
     },
     "click #btnC": function (e) {
         $("#modal-ingreso-flor").hide();
-    }
+    },
+    "click #btn-add-category": function (e) {
+        let categorias = Session.get("CategoriasFlor");
+        if (!categorias) categorias = [];
+        let name = $("#input-category").val();
+        if (name != "" && !categorias.includes(name)) categorias.push(name);
+        Session.set("CategoriasFlor", categorias);
+    },
 });
 
