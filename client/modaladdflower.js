@@ -5,9 +5,8 @@ Template.modaladdflower.helpers({
     },
     categoriasFlor()
     {
-        return Session.get("CategoriasFlor").map(function(c, i){
+        return Session.get("CategoriasFlor").map(function(c){
             let cat = {
-                index: i,
                 nombre: c
             };
             return cat;
