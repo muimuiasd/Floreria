@@ -12,6 +12,7 @@ Template.catalogue.onCreated(function()
 Template.catalogue.rendered = function()
 {
     $(".label-drophelp").hide();
+    $("#modal-ingreso-flor").show();
 };
 
 Template.catalogue.helpers({
@@ -91,7 +92,7 @@ Template.catalogue.events({
             }
         }
     },
-    "click .button-add-flower": function(e)
+    "click #btnG": function(e)
     {
         let doc = {};
         let flower = Session.get("ActualFlower") ? Session.get("ActualFlower") : {};
@@ -102,7 +103,7 @@ Template.catalogue.events({
         doc.name = name;
         doc.description = description;
         doc.categorias=categorias;
-        
+
         Meteor.call("AddFlower", flower ? flower._id : false, doc, function (err, resp)
         {
             if (!err)
@@ -113,6 +114,12 @@ Template.catalogue.events({
                 }
             } else console.warn(err);
         });
+        $("#modal-ingreso-flor").hide();
+    },
+    "click .button-add-flower": function(e)
+    {
+        $("#modal-ingreso-flor").show();
+        Session.set("FlorSeleccionada", {});
     },
     "click .btn-flower-remove"(e) {
         Meteor.call("RemoveFlower", e.currentTarget.id, function (err, resp) {
@@ -120,6 +127,9 @@ Template.catalogue.events({
                 console.log("Flor eliminada");
             }
         });
+    },
+    "click #btnC": function (e) {
+        $("#modal-ingreso-flor").hide();
     }
 });
 

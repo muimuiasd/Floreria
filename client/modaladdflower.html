@@ -1,0 +1,47 @@
+<template name="modaladdflower">
+    <div id="modal-ingreso-flor" style="background-color: rgba(0,0,0,0.5);" class="modal">
+        <div class="modal-dialog" style="max-width: 1000px" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <H1  class="text-center">Nueva flor</H1>
+                </div>
+                <div class="modal-body">
+                    <div id="topVistaForm" class="container" >
+                        <form>
+                            <div class="form-group">
+                                <label for="nombre">Nombre de flor </label>
+                                <input type="text" class="form-control" id="input-flower-name" value="{{currentFlower.name}}" placeholder="Rosa">
+                                <label for="nombre">Descripción </label>
+                                <input type="text" class="form-control" id="input-flower-description" value="{{currentFlower.description}}" placeholder="Flor multicolor traída desde la cordillera(?)">
+                            </div>
+                            {{#if currentFlower.categorias}}
+                            <label>Categorías:</label>
+                            {{/if}}
+                            <div class="form-group">
+                                <label for="nombre">Agregar categoría </label>
+                                <input type="text" class="form-control" id="nombre" placeholder="Comedia">
+                            </div>
+                            <button  id="btn-add-category" type="button">Guardar</button>
+                            <div class="modal-footer">
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div style="text-align:center">
+                                            <button  id="btnG" type="button" class="btn btn-success">Guardar</button>
+                                            <button  id="btnC" type="button" class="btn btn-light">Cancelar</button>
+                                            <button  id="btnCa" type="button" class="btn btn-danger">Borrar campos</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</template>
+

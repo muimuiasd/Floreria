@@ -2,35 +2,21 @@
     <header>
         <nav id="nav-1">
 
-                        <a class="logo link" >Las Lilas
-                              </a>
-                        <a id="btn-catalogue" class="links">
-                            Catálogo
-                        </a>
+            <a class="logo link">Las Lilas
+            </a>
+            <a id="btn-catalogue" class="links">
+                Catálogo
+            </a>
+            {{#if idUser}}
+                <a id="btn-admin" class="links">
+                    {{name}}
+                </a>
 
+                <a id="logout" class="links">
+                    Cerrar sesión
+                </a>
 
-
-
-
-                    {{#if idUser}}
-                    <a id="btn-gestionarCliente" class="links">
-                        Gestionar Clientes
-                    </a>
-                        <a  id="btn-admin" class="links">
-                            {{name}}
-                        </a>
-                        <a id="pedido" class="links">
-                            Pedidos
-                        </a>
-                        <a id="categoria" class="links">
-                            Categoria
-                        </a>
-
-                        <a id="logout" class="links">
-                            Desconectar
-                        </a>
-
-                    {{/if}}
+            {{/if}}
 
         </nav>
     </header>

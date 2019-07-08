@@ -1,3 +1,8 @@
+Template.admin.rendered = function()
+{
+    $(".gestion-clientes").hide();
+};
+
 Template.admin.helpers({
     idUser()
     {
@@ -50,6 +55,20 @@ Template.admin.events({
                 }
             });
         }
+    },
+    "click .item-module"(e)
+    {
+        let id = e.currentTarget.id;
+        if (id == "modulo-clientes")
+        {
+            $(".dashboard-admin").hide();
+            $(".gestion-clientes").show();
+        }
+        window.scrollTo(0,0);
+    },
+    "click .btn-back"(e)
+    {
+        $(".gestion-clientes").hide();
+        $(".dashboard-admin").show();
     }
-
 });
