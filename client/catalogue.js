@@ -127,17 +127,58 @@ Template.catalogue.events({
         doc.description = description;
         doc.precio=precio;
         doc.categorias = categorias;
-        Meteor.call("AddFlower", flower ? flower._id : false, doc, function (err, resp)
-        {
-            if (!err)
-            {
-                if (!flower._id)
-                {
-                    flower._id = resp;
+
+        if(doc.name!="" ){
+          if (doc.description!="" ) {
+            if (doc.precio>0){
+                if (categorias.length>0) {
+                  Meteor.call("AddFlower", flower ? flower._id : false, doc, function (err, resp)
+                  {
+                      if (!err)
+                      {
+                          if (!flower._id)
+                          {
+                              flower._id = resp;
+                          }
+                      } else console.warn(err);
+                  });
+                  $("#modal-ingreso-flor").hide();
+
+                }else{
+
+                  swal("error", "por favor ingrese al menos una categoria", "error");
+
                 }
-            } else console.warn(err);
-        });
-        $("#modal-ingreso-flor").hide();
+
+
+
+            }else{
+              // LANZAR error precio
+              swal("error", "por favor ingrese el precio", "error");
+
+            }
+
+          }else{
+            //lanzar error de descricion
+            swal("error", "por favor ingrese una descrpición", "error");
+
+          }
+
+
+        }else{
+          // lanzar del nombre
+          swal("error", "por favor complete el nombre", "error");
+
+        }
+
+
+
+
+
+
+
+
+
     },
     "click .button-add-flower": function(e)
     {
@@ -174,4 +215,3 @@ Template.catalogue.events({
         Session.set("FiltroCategoria", null);
     }
 });
-

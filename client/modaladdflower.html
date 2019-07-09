@@ -1,6 +1,6 @@
 <template name="modaladdflower">
     <div id="modal-ingreso-flor" style="background-color: rgba(0,0,0,0.5);" class="modal">
-        <div class="modal-dialog" style="max-width: 1000px" role="document">
+        <div class="modal-dialog-scrollable" style="max-width: 1000px" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <H1 class="text-center">Nueva flor</H1>
@@ -9,12 +9,16 @@
                     <div id="topVistaForm" class="container">
                         <form>
                             <div class="form-group">
-                                <label for="nombre">Nombre de producto </label>
+                                <label>Nombre de producto </label>
                                 <input type="text" class="form-control" id="input-flower-name" placeholder="Rosa">
-                                <label for="nombre">Descripción </label>
+                                <label>Descripción </label>
                                 <input type="text" class="form-control" id="input-flower-description" placeholder="Flor multicolor traída desde la cordillera(?)">
-                                <label for="nombre">Precio </label>
+                                <label>Precio </label>
                                 <input type="number"  min="0" class="form-control" id="input-flower-Price" placeholder="5000">
+                                <label>Dimensiones (en cm)</label>
+                                <input type="number"  min="0" class="form-control" id="input-flower-ancho" placeholder="Ancho">
+                                <input type="number" class="form-control" id="input-flower-alto" placeholder="Alto">
+                                <img style="width: 200px;" src="{{flower.img}}" class="card-img-top" alt="imagen no encontrada">
                             </div>
                             {{#if categoriasFlor}}
                                 <label>Categorías:</label>
@@ -27,24 +31,23 @@
                                 <input type="text" class="form-control" id="input-category" placeholder="Comedia">
                             </div>
                             <button id="btn-add-category" type="button">Agregar</button>
-                            <div class="modal-footer">
-                                <div class="form-group">
-                                    <div class="form-row">
-                                        <div style="text-align:center">
-                                            <button id="btnG" type="button" class="btn btn-success">Guardar</button>
-                                            <button id="btnC" type="button" class="btn btn-light">Cancelar</button>
-                                            <button id="btnCa" type="button" class="btn btn-danger">Borrar campos
-                                            </button>
-                                        </div>
-                                    </div>
 
-                                </div>
-                            </div>
                         </form>
 
                     </div>
                 </div>
-
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div style="text-align:center">
+                                <button id="btnG" type="button" class="btn btn-success">Guardar</button>
+                                <button id="btnC" type="button" class="btn btn-light">Cancelar</button>
+                                <button id="btnCa" type="button" class="btn btn-danger">Borrar campos
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
