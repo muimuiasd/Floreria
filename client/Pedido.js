@@ -14,8 +14,8 @@ Template.Pedido.helpers({
   clients() {
     return ClientList.find();
   },
-  currentClient() {
-    return Session.get("ClienteSeleccionado");
+  currentPedido() {
+    return Session.get("PedidoSeleccionado");
   },
   flowers() {
     return Flowers.find().map(function (o, i) {
@@ -27,9 +27,22 @@ Template.Pedido.helpers({
       return o;
     });
   },
-  pedidos()
-  {
+  pedidos() {
+    let doc = Session.get("FiltroFecha");
+    if (doc)
+    return Pedidos.find({fecha: {$gt: new Date(doc.inicio), $lt: new Date(doc.fin)}});
+    else
     return Pedidos.find();
+  },
+  arrP() {
+    let arrProductos = Session.get("ArregloProductos")
+    if (arrProductos)
+      return arrProductos.map(function (p, i) {
+        console.log(p);
+        p.index = i + 1;
+        p.total = p.producto.precio * p.cantidad;
+        return p;
+      });
   }
 });
 
@@ -57,136 +70,189 @@ Template.Pedido.events({
   },
   "click #addp": function (e) {
     Session.set("PedidoSeleccionado", {});
+    Session.set("ArregloProductos", []);
+    setear();
     $("#modal-ingreso-pedido").show();
-},
-  "click #btngap": function (e) {
-    let fecha=$("#datepicker").val();
-   
-    if(validarFormatoFecha(fecha)){
-      if(existeFecha(fecha)){
-           if(!validarFechaMenorActual(fecha)){
-            if ($("#seleccionarProducto").val() != "seleccione" && $("#seleccionarCliente").val() != "seleccione") {
-              let cliente = ClientList.findOne({ "_id": $("#seleccionarCliente").val() });
-              let producto = Flowers.findOne({ "_id": $("#seleccionarProducto").val() });
-              let cantidad = $("#cantidadProductos").val();
-              
-              if (cantidad >= 1) {
-                $("#seleccionarCliente").attr("disabled", "disabled");
-                $("#inputNombreDetalles").html(cliente.nombre);
-                $("#inputdireccionDetalles").html(cliente.calleE + cliente.numeroE + "comuna: " + cliente.comunasE + "region: " + cliente.regionesE);
-                let html = '<tr><th scope="row">' + producto.name + '</th><td >' + producto.precio + '</td><td>' + cantidad + '</td><td>' + (cantidad * producto.precio) + '</td><td hidden class="idproducto">' + (producto._id) + '</td></tr>';
-                $("#agregardetalles").append(html);
-              } else {
-                swal ( "error" ,  "debe ingresar almenos 1 producto" ,  "error" );
-        
-              }
-            }else{
-
-              swal ( "error" ,  "debe seleccionar cliente y producto" ,  "error" );
-            }
-    
-           }else{
-            swal ( "error" ,  "La fecha introducida es menor a la actual" ,  "error" );
-           }
-    
-      }else{
-            swal ( "error" ,  "La fecha introducida no existe." ,  "error" );
-      }
-    }else{
-      swal ( "error" ,  "El formato de la fecha es incorrecto." ,  "error" );
-    }
-   
   },
+  "click #btngap": function () {
+    if ($("#seleccionarProducto").val() != "seleccione") {
+      let producto = Flowers.findOne({ "_id": $("#seleccionarProducto").val() });
+      let cantidad = $("#cantidadProductos").val();
+      if (cantidad >= 1) {
+        let arrProductos = Session.get("ArregloProductos");
+        if (!arrProductos) arrProductos = [];
+        let doc = {
+          producto: producto,
+          cantidad: cantidad
+        }
+        if (!arrProductos.includes(doc)) {
+          arrProductos.push(doc);
+        }
+        console.log(arrProductos);
+        Session.set("ArregloProductos", arrProductos);
+      } else {
+        swal("error", "debe ingresar almenos 1 producto", "error");
+
+      }
+    }
+  },
+  /*"click #btngap": function (e) {
+    let fecha = $("#datepicker").val();
+
+    if (validarFormatoFecha(fecha)) {
+      if (existeFecha(fecha)) {
+        if (!validarFechaMenorActual(fecha)) {
+          if ($("#seleccionarProducto").val() != "seleccione" && $("#seleccionarCliente").val() != "seleccione") {
+            let cliente = ClientList.findOne({ "_id": $("#seleccionarCliente").val() });
+            let producto = Flowers.findOne({ "_id": $("#seleccionarProducto").val() });
+            let cantidad = $("#cantidadProductos").val();
+
+            if (cantidad >= 1) {
+              $("#seleccionarCliente").attr("disabled", "disabled");
+              $("#inputNombreDetalles").html(cliente.nombre);
+              $("#inputdireccionDetalles").html(cliente.calleE + cliente.numeroE + "comuna: " + cliente.comunasE + "region: " + cliente.regionesE);
+              let html = '<tr><th scope="row">' + producto.name + '</th><td >' + producto.precio + '</td><td>' + cantidad + '</td><td>' + (cantidad * producto.precio) + '</td><td hidden class="idproducto">' + (producto._id) + '</td></tr>';
+              $("#agregardetalles").append(html);
+              console.log("agrego a la tabla");
+            } else {
+              swal("error", "debe ingresar almenos 1 producto", "error");
+
+            }
+          } else {
+
+            swal("error", "debe seleccionar cliente y producto", "error");
+          }
+
+        } else {
+          swal("error", "La fecha introducida es menor a la actual", "error");
+        }
+
+      } else {
+        swal("error", "La fecha introducida no existe.", "error");
+      }
+    } else {
+      swal("error", "El formato de la fecha es incorrecto.", "error");
+    }
+
+  },*/
   "click #btnGp": function () {
 
-     let fecha=$("#datepicker").val();
-   
-    if(validarFormatoFecha(fecha)){
-      if(existeFecha(fecha)){
-           if(!validarFechaMenorActual(fecha)){
-            if ($("#seleccionarProducto").val() != "seleccione" && $("#seleccionarCliente").val() != "seleccione") {
-             
-              let cantidad = $("#cantidadProductos").val();
-              console.log(cantidad);
-              if (cantidad >= 1) {
-                var nFilas = $('#tablaCuantica >tbody >tr').length;
-                var array=new Array(nFilas);
-                console.log()
-              if(nFilas>=1){
-                let pedidodoc = {};  
-                var arrayc= new Array(nFilas);
-                 var cont=0;
-                 var contc=0;
-                 let suma=0;
-                $(".idproducto").parent("tr").find("td").each(function( index) {
-                    if((index+1)%4==0){
-                      array[cont]=Flowers.findOne({ "_id": $(this).text() }).name + " "+Flowers.findOne({ "_id": $(this).text() }).precio;
-                      cont++;
-                    }
-                    if((index+2)%4==0){
-                     suma+=parseInt($(this).text());
-                    }
-                    if((index+3)%4==0){
-                      arrayc[contc]=parseInt($(this).text());
-                      contc++;
-                     }
-          
-                  });
-                pedidodoc.cliente = ClientList.findOne({ "_id": $("#seleccionarCliente").val() });
-                pedidodoc.productos=array;
-                pedidodoc.total=suma;
-                pedidodoc.cantidades=arrayc;
-                pedidodoc.fecha=fecha;
-                let pedido = Session.get("pedidoSeleccionado");
-                Meteor.call("AddPedido", pedido ? pedido._id : false, pedidodoc, function (err, resp) {
-                  if (!err) {
-                    if (!pedido._id) {
-                      pedido._id = resp;
-                    }
-                    console.log(resp);
-                  } else console.warn(err);
-                
-                });
-                swal("guardado", "operacion exitosa", "success");
-                $("#modal-ingreso-pedido").hide();
-              }else{
+    let fecha = $("#datepicker").val();
+    let cantidad = $("#cantidadProductos").val();
+    if (validarFormatoFecha(fecha)) {
+      if (existeFecha(fecha)) {
+        if (!validarFechaMenorActual(fecha)) {
+          if (Session.get("ArregloProductos") && $("#seleccionarCliente").val() != "seleccione") {
+            let pedidodoc = {};
+            pedidodoc.cliente = ClientList.findOne({ "_id": $("#seleccionarCliente").val() });
+            pedidodoc.productos = Session.get("ArregloProductos");
+            pedidodoc.fecha = fecha;
+            pedidodoc.valorb = "0";
+            let pedido = Session.get("PedidoSeleccionado");
+            Meteor.call("AddPedido", pedido ? pedido._id : false, pedidodoc, function (err, resp) {
+              if (!err) {
+                if (!pedido._id) {
+                  pedido._id = resp;
+                }
+                console.log(resp);
+              } else console.warn(err);
 
-                swal ( "error" ,  "favor presionar agregar" ,  "error" );
-        
-              }
+            });
+            swal("guardado", "operacion exitosa", "success");
+            $("#modal-ingreso-pedido").hide();
+          }
 
-              } else {
-                swal ( "error" ,  "debe ingresar almenos 1 producto" ,  "error" );
-        
-              }
-            }else{
 
-              swal ( "error" ,  "debe seleccionar cliente y producto" ,  "error" );
-            }
-    
-           }else{
-            swal ( "error" ,  "La fecha introducida es menor a la actual" ,  "error" );
-           }
-    
-      }else{
-            swal ( "error" ,  "La fecha introducida no existe." ,  "error" );
+          else {
+
+            swal("error", "debe seleccionar cliente y producto", "error");
+          }
+
+        } else {
+          swal("error", "La fecha introducida es menor a la actual", "error");
+        }
+
+      } else {
+        swal("error", "La fecha introducida no existe.", "error");
       }
-    }else{
-      swal ( "error" ,  "El formato de la fecha es incorrecto." ,  "error" );
+    } else {
+      swal("error", "El formato de la fecha es incorrecto.", "error");
     }
-    
-    
+
+
+  },
+
+  "click .btn-pedido-delete": function (e) {
+    console.log("id: " + e.currentTarget.id);
+    Meteor.call("RemovePedido", e.currentTarget.id, function (err, resp) {
+      if (!err) {
+        swal("borrado", "eliminado", "success");
+      }
+    });
+  },
+  "click .btn-pedido-update": function (e) {// solo rellenar form
+    $("#modal-ingreso-pedido").show();
+    let pedido = Pedidos.findOne({ "_id": e.currentTarget.id })
+    Session.set("PedidoSeleccionado", pedido);
+    Session.set("ArregloProductos", pedido.productos);
+
+    window.scrollTo(0, 0);
+
   },
   "click #btnGac": function () {
     setear();
     $("#modal-ingreso-pedido").hide();
+  },
+  "keyup #datepicker2": function () {
+    var fecha1 = $("#datepicker2").val();
+    var fecha2 = $("#datepicker3").val();
+    doc =
+    {
+      inicio: fecha1,
+      fin: fecha2
+    }
+    if (validarFormatoFecha(fecha1) && validarFormatoFecha(fecha2))
+    {
+      console.log("AL FIN");
+      Session.set("FiltroFecha", doc);
+      
+    }
+    else {
+      console.log("dfknasjdnfaj");
+      Session.set("FiltroFecha", null);
+    }
+  },
+  "keyup #datepicker3": function () {
+    var fecha1 = $("#datepicker2").val();
+    var fecha2 = $("#datepicker3").val();
+   
+    fecha1.split("/");
+    fecha2.split("/");
+
+    doc =
+    {
+      inicio: fecha1,
+      fin: fecha2
+    }
+    //validarFormatoFecha(fecha1) && validarFormatoFecha(fecha2)
+    if (validarFormatoFecha(fecha1) && validarFormatoFecha(fecha2))
+    {
+      console.log("AL FIN");
+      Session.set("FiltroFecha", doc);
+      
+    }
+    else {
+      console.log("dfknasjdnfaj");
+      Session.set("FiltroFecha", null);
+    }
   }
 
 
 
 
+
 });
-function setear(){
+function setear() {
 
   $("#InfoProductoString").val("");
   $("#cantidadProductos").val("");
@@ -195,17 +261,8 @@ function setear(){
   $("#seleccionarCliente").val("seleccione");
   $("#seleccionarCliente").removeAttr("disabled");
   $("#datepicker").val("");
-  
-  
-  
-  let html='<thead class="thead-dark"><tr><th scope="col">producto</th><th scope="col">precio</th><th scope="col">cantidad</th><th scope="col">sub total</th></tr></thead><tbody id="agregardetalles"></tbody>';
-  $("#inputNombreDetalles").empty("");
-  $("#inputdireccionDetalles").empty("");
-  $("#tablaCuantica").empty();
-  $("#tablaCuantica").append(html);
-  
 
-}
+};
 function validarFormatoFecha(campo) {
   var RegExPattern = /^\d{1,2}\/\d{1,2}\/\d{2,4}$/;
   if ((campo.match(RegExPattern)) && (campo != '')) {
@@ -223,9 +280,10 @@ function existeFecha(fecha) {
   var date = new Date(year, month, '0');
   if ((day - 0) > (date.getDate() - 0)) {
     return false;
-    
-  }else{
-  return true;}
+
+  } else {
+    return true;
+  }
 }
 
 function existeFecha2(fecha) {
