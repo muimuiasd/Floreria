@@ -1,162 +1,239 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-Template.Pedido.onCreated(function()
-{
-  
+
+Template.Pedido.onCreated(function () {
+
 });
 
-Template.Pedido.rendered = function()
-{  
-
-  $('.datetimepicker').datetimepicker();
+Template.Pedido.rendered = function () {
+  $("#modal-ingreso-pedido").show();
 };
 
 
 Template.Pedido.helpers({
-  idUser()
-    {
-        return Meteor.user() ? Meteor.user()._id : false;
-    },
-    clients()
-    {
-        return ClientList.find();
-    },
-    currentClient()
-    {
-        return Session.get("ClienteSeleccionado");
-    },
-    flowers()
-    {
-        return Flowers.find().map(function (o, i) {
-            let img = Images.findOne({
-                "meta.flowerId": o._id
-            });
+  idUser() {
+    return Meteor.user() ? Meteor.user()._id : false;
+  },
+  clients() {
+    return ClientList.find();
+  },
+  currentClient() {
+    return Session.get("ClienteSeleccionado");
+  },
+  flowers() {
+    return Flowers.find().map(function (o, i) {
+      let img = Images.findOne({
+        "meta.flowerId": o._id
+      });
 
-            o.img = img ? img.link() : "img/flower.png";
-            return o;
-        });
-    }
+      o.img = img ? img.link() : "img/flower.png";
+      return o;
+    });
+  }
 });
 
 Template.Pedido.events({
-"change #seleccionarCliente": function(e){
+  "change #seleccionarCliente": function (e) {
+    if ($("#seleccionarCliente").val() != "seleccione") {
+      let id = $("#seleccionarCliente").val();
+      let docSelect = ClientList.findOne({ "_id": id });
 
-  // el cliente debe mostrarse en el cuadro de abajo
-  //InfoClienteString
-  if($("#seleccionarCliente").val()!="seleccione"){
-  let id=$("#seleccionarCliente").val();
-  let docSelect=ClientList.findOne({"_id":id});
+      $("#InfoClienteString").val(docSelect.nombre + " " + docSelect.apellido);
+    } else {
+      swal("error", "favor seleccione cliente", "error");
 
-$("#InfoClienteString").val(docSelect.nombre+" "+docSelect.apellido);
-}else{
-  swal ( "error" ,  "favor seleccione cliente" ,  "error" );
-
-}
-},
-  "change #seleccionarProducto": function(e){
- // el producto debe mostrarse en el cuadro de abajo
- // InfoProductoString
-
-
- if($("#seleccionarProducto").val()!="seleccione"){
- let id=$("#seleccionarProducto").val();
- let docSelect=Flowers.findOne({"_id":id});
-console.log(docSelect);
-$("#InfoProductoString").val(docSelect.name+" " +docSelect.description);
-}else{
-  swal ( "error" ,  "favor seleccione producto" ,  "error" );
-
-}
+    }
   },
-  "click #btngap":function(e){
-fechastring=$("#idInput").val();
-console.log(fechastring);
-  }
-/*fecha=new Date(fechastring);
-if(validarFormatoFecha(fecha)){
-  if(existeFecha(fecha)){
-       if(validarFechaMenorActual(fecha)){
-          // trabajar aqui guardando
+  "change #seleccionarProducto": function (e) {
+    if ($("#seleccionarProducto").val() != "seleccione") {
+      let id = $("#seleccionarProducto").val();
+      let docSelect = Flowers.findOne({ "_id": id });
+      $("#InfoProductoString").val(docSelect.name + " " + docSelect.precio);
+    } else {
+      swal("error", "favor seleccione producto", "error");
 
-       }else{
-        swal ( "error" ,  "La fecha introducida es menor a la actual" ,  "error" );
-       }
+    }
+  },
+  "click #btngap": function (e) {
+    fecha=$("#datepicker").val();
+   
+    if(validarFormatoFecha(fecha)){
+      if(existeFecha(fecha)){
+           if(!validarFechaMenorActual(fecha)){
+            if ($("#seleccionarProducto").val() != "seleccione" && $("#seleccionarCliente").val() != "seleccione") {
+              let cliente = ClientList.findOne({ "_id": $("#seleccionarCliente").val() });
+              let producto = Flowers.findOne({ "_id": $("#seleccionarProducto").val() });
+              let cantidad = $("#cantidadProductos").val();
+              if (cantidad >= 1) {
+                $("#seleccionarCliente").attr("disabled", "disabled");
+                $("#inputNombreDetalles").html(cliente.nombre);
+                $("#inputdireccionDetalles").html(cliente.calleE + cliente.numeroE + "comuna: " + cliente.comunasE + "region: " + cliente.regionesE);
+                let html = '<tr><th scope="row">' + producto.name + '</th><td >' + producto.precio + '</td><td>' + cantidad + '</td><td>' + (cantidad * producto.precio) + '</td><td hidden class="idproducto">' + (producto._id) + '</td></tr>';
+                $("#agregardetalles").append(html);
+              } else {
+                swal ( "error" ,  "debe ingresar almenos 1 producto" ,  "error" );
+        
+              }
+            }else{
 
-  }else{
-        swal ( "error" ,  "La fecha introducida no existe." ,  "error" );
-  }
-}else{
-  swal ( "error" ,  "El formato de la fecha es incorrecto." ,  "error" );
-}
-
-    let doc={};
-     doc.nombre=$("#nombre").val();
-   doc.apellido=$("#apellido").val();  
-      doc.email=$("#email").val();
-     doc.calleP=$("#calleP").val();
-    doc.numeroP=$("#numeroP").val();
-  doc.regionesP=$("#regionesP").val(); 
-   doc.comunasP=$("#comunasP").val(); 
-     doc.calleE=$("#calleE").val();
-    doc.numeroE=$("#numeroE").val();
-  doc.regionesE=$("#regionesE").val();   
-   doc.comunasE=$("#comunasE").val();
-   let client = Session.get("ClienteSeleccionado");
+              swal ( "error" ,  "debe seleccionar cliente y producto" ,  "error" );
+            }
     
+           }else{
+            swal ( "error" ,  "La fecha introducida es menor a la actual" ,  "error" );
+           }
+    
+      }else{
+            swal ( "error" ,  "La fecha introducida no existe." ,  "error" );
+      }
+    }else{
+      swal ( "error" ,  "El formato de la fecha es incorrecto." ,  "error" );
+    }
+   
+  },
+  "click #btnGp": function () {
 
-  if(doc.nombre=="" || doc.apellido==""|| doc.email=="" || doc.calleE=="" || doc.calleP=="" || doc.numeroP=="" || doc.regionesP=="" || doc.comunasP=="" || doc.numeroE=="" || doc.regionesE=="" || doc.comunasE=="" || doc.regionesE== 'sin-region' || doc.regionesP== 'sin-region' || doc.comunasE == 'sin-comuna' || doc.comunasP == 'sin-comuna')
-    swal ( "error" ,  "favor completar todos los campos" ,  "error" );
-else Meteor.call("AddClients", client ? client._id : false, doc, function (err, resp)
-{
-    if (!err)
-    {
-        if (!client._id)
-        {
-            client._id = resp;
-        }
-        console.log(resp);
-    } else console.warn(err);
-});
-},
-"click #btnCap":function(e){
-Session.set("ClienteSeleccionado", {});
-}*/
-});
+    fecha=$("#datepicker").val();
+   
+    if(validarFormatoFecha(fecha)){
+      if(existeFecha(fecha)){
+           if(!validarFechaMenorActual(fecha)){
+            if ($("#seleccionarProducto").val() != "seleccione" && $("#seleccionarCliente").val() != "seleccione") {
+             
+              let cantidad = $("#cantidadProductos").val();
+              console.log(cantidad);
+              if (cantidad >= 1) {
+                var nFilas = $('#tablaCuantica >tbody >tr').length;
+                var array=new Array(nFilas);
+                console.log()
+              if(nFilas>=1){
+                let pedidodoc = {};  
+                var arrayc= new Array(nFilas);
+                 var cont=0;
+                 var contc=0;
+                 let suma=0;
+                $(".idproducto").parent("tr").find("td").each(function( index) {
+                    if((index+1)%4==0){
+                      array[cont]=Flowers.findOne({ "_id": $(this).text() }).name + " "+Flowers.findOne({ "_id": $(this).text() }).precio;
+                      cont++;
+                    }
+                    if((index+2)%4==0){
+                     suma+=parseInt($(this).text());
+                    }
+                    if((index+3)%4==0){
+                      arrayc[contc]=parseInt($(this).text());
+                      contc++;
+                     }
+          
+                  });
+                pedidodoc.cliente = ClientList.findOne({ "_id": $("#seleccionarCliente").val() });
+                pedidodoc.productos=array;
+                pedidodoc.total=suma;
+                pedidodoc.cantidades=arrayc;
+                let pedido = Session.get("pedidoSeleccionado");
+                Meteor.call("AddPedido", pedido ? pedido._id : false, pedidodoc, function (err, resp) {
+                  if (!err) {
+                    if (!pedido._id) {
+                      pedido._id = resp;
+                    }
+                    console.log(resp);
+                  } else console.warn(err);
+                
+                });
+                swal("guardado", "operacion exitosa", "success");
+                $("#modal-ingreso-pedido").hide();
+              }else{
 
+                swal ( "error" ,  "favor presionar agregar" ,  "error" );
+        
+              }
+
+              } else {
+                swal ( "error" ,  "debe ingresar almenos 1 producto" ,  "error" );
+        
+              }
+            }else{
+
+              swal ( "error" ,  "debe seleccionar cliente y producto" ,  "error" );
+            }
+    
+           }else{
+            swal ( "error" ,  "La fecha introducida es menor a la actual" ,  "error" );
+           }
+    
+      }else{
+            swal ( "error" ,  "La fecha introducida no existe." ,  "error" );
+      }
+    }else{
+      swal ( "error" ,  "El formato de la fecha es incorrecto." ,  "error" );
+    }
+    
+    
+  },
+  "click #btnGac": function () {
+    setear();
+    $("#modal-ingreso-pedido").hide();
+  }
+
+
+
+
+});
+function setear(){
+
+  $("#InfoProductoString").val("");
+  $("#cantidadProductos").val("");
+  $("#seleccionarProducto").val("seleccione");
+  $("#InfoClienteString").val("");
+  $("#seleccionarCliente").val("seleccione");
+  $("#seleccionarCliente").removeAttr("disabled");
+  $("#datepicker").val("");
+  
+  
+  
+  let html='<thead class="thead-dark"><tr><th scope="col">producto</th><th scope="col">precio</th><th scope="col">cantidad</th><th scope="col">sub total</th></tr></thead><tbody id="agregardetalles"></tbody>';
+  $("#inputNombreDetalles").empty("");
+  $("#inputdireccionDetalles").empty("");
+  $("#tablaCuantica").empty();
+  $("#tablaCuantica").append(html);
+  
+
+}
 function validarFormatoFecha(campo) {
   var RegExPattern = /^\d{1,2}\/\d{1,2}\/\d{2,4}$/;
-  if ((campo.match(RegExPattern)) && (campo!='')) {
-        return true;
+  if ((campo.match(RegExPattern)) && (campo != '')) {
+    return true;
   } else {
-        return false;
+    return false;
   }
 }
-function existeFecha(fecha){
-var fechaf = fecha.split("/");
-var day = fechaf[0];
-var month = fechaf[1];
-var year = fechaf[2];
-var date = new Date(year,month,'0');
-if((day-0)>(date.getDate()-0)){
+function existeFecha(fecha) {
+  console.log(fecha);
+  var fechaf = fecha.split("/");
+  var day = fechaf[0];
+  var month = fechaf[1];
+  var year = fechaf[2];
+  var date = new Date(year, month, '0');
+  if ((day - 0) > (date.getDate() - 0)) {
     return false;
-}
-return true;
+    
+  }else{
+  return true;}
 }
 
-function existeFecha2 (fecha) {
-var fechaf = fecha.split("/");
-var d = fechaf[0];
-var m = fechaf[1];
-var y = fechaf[2];
-return m > 0 && m < 13 && y > 0 && y < 32768 && d > 0 && d <= (new Date(y, m, 0)).getDate();
+function existeFecha2(fecha) {
+  var fechaf = fecha.split("/");
+  var d = fechaf[0];
+  var m = fechaf[1];
+  var y = fechaf[2];
+  return m > 0 && m < 13 && y > 0 && y < 32768 && d > 0 && d <= (new Date(y, m, 0)).getDate();
 }
-function validarFechaMenorActual(date){
-var x=new Date();
-var fecha = date.split("/");
-x.setFullYear(fecha[2],fecha[1]-1,fecha[0]);
-var today = new Date();
+function validarFechaMenorActual(date) {
+  var x = new Date();
+  var fecha = date.split("/");
+  x.setFullYear(fecha[2], fecha[1] - 1, fecha[0]);
+  var today = new Date();
 
-if (x >= today)
-return false;
-else
-return true;
+  if (x >= today)
+    return false;
+  else
+    return true;
 }

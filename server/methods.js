@@ -49,5 +49,22 @@ Meteor.methods({
         MyCategories.remove({
             _id: id
         });
+    },
+    AddPedido(id, doc) {
+        if (!id) {
+            return Pedidos.insert(doc);
+        }
+        Pedidos.update({
+            _id: id
+        }, {
+            $set: doc
+        });
+        return id;
+    },
+
+    RemovePedido(id) {
+        Pedidos.remove({
+            _id: id
+        });
     }
 });

@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="col-sm-6 col-md-4 item">
-                    <div class="card item-module" id="modulo-clientes" style="width: 18rem;">
+                    <div class="card item-module" id="modulo-pedidos" style="width: 18rem;">
                         <div class="card-header">
                             <div class="card-title"><h4>Gestión de pedidos</h4></div>
                         </div>
@@ -63,6 +63,8 @@
 
         </div>
     {{/if}}
+    {{#if idUser}}
     {{>Cliente}}
-
+    {{>Pedido}}
+    {{/if}}
 </template>

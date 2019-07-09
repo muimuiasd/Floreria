@@ -1,80 +1,105 @@
 <template name="Pedido">
-  <head>
-      <script src="https://kit.fontawesome.com/5a83c48770.js"></script>
-      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <div align="center">
-      <h2> Ingresar Pedido </h2>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-6">
-          <form>
-            <div class="clearfix"></div>
-            <div class="form-group">
-                <div class="box-body no-padding">
-                    <label for="myInput">ingrese fecha de pedido</label>
-                    <div class="input-group datetimepicker">
-                       <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                       <input name="idInput" id="idInput" class="set-due-date form-control" type="text"/>
-                     </div>
-                    <div id="calendar" style="width: 100%"></div>
-                </div><!-- /.box-body -->
-            
+  <div class="gestion-pedidos">
+    <div class="modal" style="background-color: rgba(0,0,0,0.5);" id="modal-ingreso-pedido">
+      <div class="modal-dialog" style=" max-width: 1000px" role="document">
+        <div class="modal-content">
+            <div class="modal-header" align="center">
+                <h2> Ingresar Pedido </h2>
+              </div>
+            <div class="modal-body">
+                <form id="formPedidos">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <form>
+                          
+                            <div class="form group">
+                                <p>fecha : <input type="text" id="datepicker"></p>
+                            </div>
+                      
+                        <div class="form-group">
+                          <label for="seleccionarCliente">Seleccionar Cliente </label>
+                          <select class="form-control" id="seleccionarCliente">
+                            <option value="seleccione">seleccione</option>
+                              {{#each clients}}
+                              <option value="{{_id}}">{{nombre}} {{apellido}} {{email}}</option>
+                
+                              {{/each}}
+                          </select>
+                      <label for="InfoClienteString">cliente:</label>
+                      <input type="text" disabled id="InfoClienteString" placeholder="cliente X">
+                          
+                        </div>
+                      
+                        <div class="form-group">
+                          <label for="seleccionarProducto">Seleccionar Producto</label>
+                          <select class="form-control" id="seleccionarProducto">
+                              <option value="seleccione">seleccione</option>
+                              {{#each flowers}}
+                              <option value="{{_id}}">{{name}}, {{description}} </option>
+                              {{/each}}
+                          </select>
+                          <label for="cantidadProductos">Cantidad</label>
+                          <input type="number" min="0" max="999" id="cantidadProductos">
+                          <label for="InfoProductoString">producto:</label>
+                          <input type="text" disabled id="InfoProductoString" placeholder="producto X">
+                        </div>
+                        <button  id="btngap" type="button" class="btn btn-success">agregar</button>
+                        <button  id="btnGac" type="button" class="btn btn-danger">cancelar</button>
+                      
+                      
+                      </form>
+                        </div>
+                      
+                        <div class="col-sm-6">
+                          <h3>Detalles de pedido</h3>
+                     
+                      <div>
+                            <div class="form-group">
+                                <label for="inputNombreDetalles"> Nombre de cliente: </label>
+                                <label name="nombre" id="inputNombreDetalles"> </label>
+                            </div>
+                            <div class="form group">
+                                <label > direccion de envio: </label>
+                                <label  id="inputdireccionDetalles"></label>
+                               
+                            </div>
+                            <div class="form-group">
+                                <table id="tablaCuantica" class="table">
+                                    <thead class="thead-dark">
+                                      <tr>
+                                        <th scope="col">producto</th>
+                                        <th scope="col">precio</th>
+                                        <th scope="col">cantidad</th>
+                                        <th scope="col">sub total</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="agregardetalles">
+                                     
+                                     
+                                    </tbody>
+                                  </table>
+                            </div>
+                
+                      </div>
+                    </div>
+                      </div>
+                      <div align="center">
+                          <button  id="btnGp" type="button" class="btn btn-success">Guardar</button>
+                      </div>
+                 
+                    </div>
+                  </form>
             </div>
-            <div class="clearfix"></div>
-      
-        <div class="form-group">
-          <label for="seleccionarCliente">Seleccionar Cliente </label>
-          <select class="form-control" id="seleccionarCliente">
-            <option value="seleccione">seleccione</option>
-              {{#each clients}}
-              <option value="{{_id}}">{{nombre}} {{apellido}} {{email}}</option>
-
-              {{/each}}
-          </select>
-      <label for="InfoClienteString">cliente:</label>
-      <input type="text" disabled id="InfoClienteString" placeholder="cliente X">
+        </div>
+        
           
-        </div>
-      
-        <div class="form-group">
-          <label for="seleccionarProducto">Seleccionar Producto</label>
-          <select class="form-control" id="seleccionarProducto">
-              <option value="seleccione">seleccione</option>
-              {{#each flowers}}
-              <option value="{{_id}}">{{name}}, {{description}}</option>
-              {{/each}}
-          </select>
-          <label for="cantidadProductos">Cantidad</label>
-          <input type="number" min="0" max="999" id="cantidadProductos">
-          <label for="InfoProductoString">producto:</label>
-          <input type="text" disabled id="InfoProductoString" placeholder="producto X">
-        </div>
-        <button  id="btngap" type="button" class="btn btn-success">agregar</button>
-      
-      
-      
-      </form>
-        </div>
-      
-        <div class="col-sm-6">
-          <h3>Detalles de pedido</h3>
-        </div>
-      
-      
       </div>
-      <div align="center">
-          <button  id="btnGp" type="button" class="btn btn-success">Guardar</button>
-          <button  id="btnCap" type="button" class="btn btn-danger">Borrar campos</button>
-      </div>
- 
     </div>
 
-  </body>
+    <div class="btn-back" style="margin-top:30px">
+        <a style="background-color:lightgray; padding: 10px; margin-left: 50px">Regresar la consola</a>
+    </div>
+  </div>
 
 </template>
