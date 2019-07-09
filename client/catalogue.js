@@ -22,7 +22,9 @@ Template.catalogue.helpers({
     },
     flowers()
     {
-        return Flowers.find().map(function (o, i) {
+        let filter=Session.get("FiltroCategoria");
+        let flores = filter ? Flowers.find({"categorias" : filter}) : Flowers.find();
+        return flores.map(function (o, i) {
             let img = Images.findOne({
                 "meta.flowerId": o._id
             });
@@ -52,6 +54,10 @@ Template.catalogue.helpers({
             };
             return cat;
         });
+    },
+    filtro()
+    {
+        return Session.get("FiltroCategoria");
     }
 });
 
@@ -159,5 +165,13 @@ Template.catalogue.events({
         if (name != "" && !categorias.includes(name)) categorias.push(name);
         Session.set("CategoriasFlor", categorias);
     },
+    "click .btn-filter-category": function(e)
+    {
+        Session.set("FiltroCategoria", e.currentTarget.id);
+    },
+    "click .btn-remove-filter": function(e)
+    {
+        Session.set("FiltroCategoria", null);
+    }
 });
 

@@ -29,10 +29,17 @@
                 <b>Categorías: </b>
                 <div class="row">
                     {{#each allCategories}}
-                        <div id="{{name}}" style="background-color: lightpink; padding: 10px; margin: 5px;"><a><b>{{name}}</b></a></div>
+                        <div class="btn-filter-category" id="{{name}}"
+                             style="background-color: lightpink; padding: 10px; margin: 5px;"><a><b>{{name}}</b></a>
+                        </div>
                     {{/each}}
                 </div>
                 <hr>
+                {{#if filtro}}
+                    <h4>Filtrando por: <b>{{filtro}}</b></h4>
+                    <button class="btn btn-dark btn-remove-filter">Eliminar filtro</button>
+                    <br>
+                {{/if}}
                 <br>
             </div>
             <div class="row articles">
@@ -65,7 +72,6 @@
                                 <p class="card-text">{{description}}</p>
                                 <p class="card-text">{{precio}}</p>
                                 <p class="card-text">Etiquetas: {{categorias}}</p>
-
 
                                 {{#if idUser}}
 
