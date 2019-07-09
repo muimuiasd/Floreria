@@ -9,11 +9,12 @@
                     <div id="topVistaForm" class="container">
                         <form>
                             <div class="form-group">
-                                <label for="nombre">Nombre de flor </label>
+                                <label for="nombre">Nombre de producto </label>
                                 <input type="text" class="form-control" id="input-flower-name" placeholder="Rosa">
                                 <label for="nombre">Descripción </label>
-                                <input type="text" class="form-control" id="input-flower-description"
-                                       placeholder="Flor multicolor traída desde la cordillera(?)">
+                                <input type="text" class="form-control" id="input-flower-description" placeholder="Flor multicolor traída desde la cordillera(?)">
+                                <label for="nombre">Precio </label>
+                                <input type="number"  min="0" class="form-control" id="input-flower-Price" placeholder="5000">
                             </div>
                             {{#if categoriasFlor}}
                                 <label>Categorías:</label>

@@ -11,3 +11,6 @@ Meteor.publish("clients", function() {
 Meteor.publish("ListCategories", function() {
     return MyCategories.find();
 });
+Meteor.publish("pedidos", function() {
+    return Pedidos.find();
+});
