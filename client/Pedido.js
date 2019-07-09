@@ -4,7 +4,6 @@ Template.Pedido.onCreated(function () {
 });
 
 Template.Pedido.rendered = function () {
-  $("#modal-ingreso-pedido").show();
 };
 
 
@@ -27,6 +26,10 @@ Template.Pedido.helpers({
       o.img = img ? img.link() : "img/flower.png";
       return o;
     });
+  },
+  pedidos()
+  {
+    return Pedidos.find();
   }
 });
 
@@ -52,8 +55,12 @@ Template.Pedido.events({
 
     }
   },
+  "click #addp": function (e) {
+    Session.set("PedidoSeleccionado", {});
+    $("#modal-ingreso-pedido").show();
+},
   "click #btngap": function (e) {
-    fecha=$("#datepicker").val();
+    let fecha=$("#datepicker").val();
    
     if(validarFormatoFecha(fecha)){
       if(existeFecha(fecha)){
@@ -62,6 +69,7 @@ Template.Pedido.events({
               let cliente = ClientList.findOne({ "_id": $("#seleccionarCliente").val() });
               let producto = Flowers.findOne({ "_id": $("#seleccionarProducto").val() });
               let cantidad = $("#cantidadProductos").val();
+              
               if (cantidad >= 1) {
                 $("#seleccionarCliente").attr("disabled", "disabled");
                 $("#inputNombreDetalles").html(cliente.nombre);
@@ -91,7 +99,7 @@ Template.Pedido.events({
   },
   "click #btnGp": function () {
 
-    fecha=$("#datepicker").val();
+     let fecha=$("#datepicker").val();
    
     if(validarFormatoFecha(fecha)){
       if(existeFecha(fecha)){
@@ -128,6 +136,7 @@ Template.Pedido.events({
                 pedidodoc.productos=array;
                 pedidodoc.total=suma;
                 pedidodoc.cantidades=arrayc;
+                pedidodoc.fecha=fecha;
                 let pedido = Session.get("pedidoSeleccionado");
                 Meteor.call("AddPedido", pedido ? pedido._id : false, pedidodoc, function (err, resp) {
                   if (!err) {

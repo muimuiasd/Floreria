@@ -1,5 +1,78 @@
 <template name="Pedido">
   <div class="gestion-pedidos">
+      <div style="margin-left: 50px; margin-bottom: 10px;">
+          <button id="addp" class="btn btn-success">Agregar nuevo pedido</button>
+      </div>
+        <div id="ConetenidoPedidos">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">cliente</th>
+                    <th scope="col">Direccion Envio</th>
+                    <th scope="col">fecha</th>
+                    <th scope="col">total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {{#each pedidos}}
+                    <tr>
+                        <td>{{cliente.nombre}}</td>
+                        <td> <div class="row"> <div >{{cliente.calleE}}</div>, Nro: <div >{{cliente.numeroE}}</div>,<div >{{cliente.comunasE}}</div>, <div  >{{cliente.regionesE}}</div></div></td>
+                        <td>{{fecha}}</td>
+                        <td>{{total}}</td>
+
+                      </tr>
+                     
+                    {{/each}}
+      
+                </tbody>
+              </table>
+         
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="modal" style="background-color: rgba(0,0,0,0.5);" id="modal-ingreso-pedido">
       <div class="modal-dialog" style=" max-width: 1000px" role="document">
         <div class="modal-content">

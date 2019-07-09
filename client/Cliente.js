@@ -171,88 +171,7 @@ Template.Cliente.helpers({
 });
 
 Template.Cliente.events({
-    /* "dragover .item-flower": function(e, t) {
-         e.stopPropagation();
-         e.preventDefault();
-         if (Meteor.user()) t.$(".label-drophelp").show();
-     },
-     "dragleave .item-flower": function(e, t) {
-         e.stopPropagation();
-         e.preventDefault();
-         t.$(".label-drophelp").hide();
-     },
-     'dragenter .item-flower': function(e, t) {
-         e.preventDefault();
-         e.stopPropagation();
-     },
-     'drop .item-flower': function(e, t) {
-         if (Meteor.user())
-         {
-             e.stopPropagation();
-             e.preventDefault();
-             let flower = Flowers.findOne({
-                 "_id": e.currentTarget.id
-             });
-             if (e.originalEvent.dataTransfer.files && e.originalEvent.dataTransfer.files[0]) {
-                 Images.remove({
-                     flowerId: e.currentTarget.id,
-                     meta: {
-                         flowerId: flower._id
-                     }
-                 });
-                 const upload = Images.insert({
-                     file: e.originalEvent.dataTransfer.files[0],
-                     streams: 'dynamic',
-                     chunkSize: 'dynamic',
-                     meta: {
-                         flowerId: flower._id
-                     }
-                 }, false);
-                 upload.on('start', function () {
-                     currentUpload.set(this);
-                 });
-
-                 upload.on('end', function (error, fileObj) {
-                     if (error) {
-                         alert('Error during upload: ' + error);
-                     } else {
-                         console.log("FileImage", fileObj);
-                     }
-                     currentUpload.set(false);
-                 });
-                 upload.start();
-             }
-         }
-     },
-     "click .button-add-flower": function(e)
-     {
-         let doc = {};
-         let flower = Session.get("ActualFlower") ? Session.get("ActualFlower") : {};
-         let name = $("#input-flower-name").val();
-         let description = $("#input-flower-description").val();
-
-         doc.name = name;
-         doc.description = description;
-
-         console.log(doc);
-         Meteor.call("AddFlower", flower ? flower._id : false, doc, function (err, resp)
-         {
-             if (!err)
-             {
-                 if (!flower._id)
-                 {
-                     flower._id = resp;
-                 }
-             } else console.warn(err);
-         });
-     },
-     "click .btn-flower-remove"(e) {
-         Meteor.call("RemoveFlower", e.currentTarget.id, function (err, resp) {
-             if (!err) {
-                 console.log("Flor eliminada");
-             }
-         });
-     }*/
+  
     "click #btnG": function (e) {
 
         let doc = {};
@@ -270,18 +189,50 @@ Template.Cliente.events({
         let client = Session.get("ClienteSeleccionado");
         //  console.log("clic guardar"+nombre+apellido+email+calleP+numeroP+regionesP+comunasP+calleE+numeroE+regionesE+comunasE);
 
-        if (doc.nombre == "" || doc.apellido == "" || doc.email == "" || doc.calleE == "" || doc.calleP == "" || doc.numeroP == "" || doc.regionesP == "" || doc.comunasP == "" || doc.numeroE == "" || doc.regionesE == "" || doc.comunasE == "" || doc.regionesE == 'sin-region' || doc.regionesP == 'sin-region' || doc.comunasE == 'sin-comuna' || doc.comunasP == 'sin-comuna')
-            swal("error", "favor completar todos los campos", "error");
-        else Meteor.call("AddClients", client ? client._id : false, doc, function (err, resp) {
-            if (!err) {
-                if (!client._id) {
-                    client._id = resp;
+        if (doc.nombre == "" || doc.apellido == "" || doc.email == "" || doc.calleE == "" || doc.calleP == "" || doc.numeroP == "" || doc.regionesP == "" || doc.comunasP == "" || doc.numeroE == "" || doc.regionesE == "" || doc.comunasE == "" )
+         {   swal("error", "favor completar todos los campos", "error");
+
+
+     } else{ 
+         if(parseInt(doc.numeroE)<0){
+console.log(parseInt(doc.numeroE))
+            swal("error", "el numero de envio debe ser mayor a 0", "error");
+         }else{
+            if(parseInt(doc.numeroP)<0){
+                swal("error", "el numero de particular debe ser mayor a 0", "error");
+
+            }else{
+                if(doc.regionesE == 'sin-region' || doc.regionesP == 'sin-region' || doc.comunasE == 'sin-comuna' || doc.comunasP == 'sin-comuna'){
+
+                    swal("error", "favor confirmar regiones y comunas", "error");
+                }else{
+                    if(!ValidateEmail(doc.email)){
+
+                    swal("error", "favir verificar el email", "error");
+
+                    }else{
+
+                        Meteor.call("AddClients", client ? client._id : false, doc, function (err, resp) {
+                            if (!err) {
+                                if (!client._id) {
+                                    client._id = resp;
+                                }
+                            } else console.warn(err);
+                        });
+                        $("#modal-ingreso-cliente").hide();
+    
+                    }
+                   
                 }
-                console.log(resp);
-            } else console.warn(err);
-        });
-        $("#modal-ingreso-cliente").hide();
-    },
+               
+            }
+
+         }
+        
+     
+    }
+
+},
     "click #addC": function (e) {
         Session.set("ClienteSeleccionado", {});
         $("#modal-ingreso-cliente").show();
