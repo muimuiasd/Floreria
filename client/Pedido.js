@@ -4,6 +4,7 @@ Template.Pedido.onCreated(function () {
 });
 
 Template.Pedido.rendered = function () {
+  $('input[name="dates"]').daterangepicker();
 };
 
 
@@ -204,6 +205,7 @@ Template.Pedido.events({
     $("#modal-ingreso-pedido").hide();
   },
   "keyup #datepicker2": function () {
+
     var fecha1 = $("#datepicker2").val();
     var fecha2 = $("#datepicker3").val();
     doc =

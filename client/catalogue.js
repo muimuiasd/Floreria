@@ -28,7 +28,6 @@ Template.catalogue.helpers({
             let img = Images.findOne({
                 "meta.flowerId": o._id
             });
-
             o.img = img ? img.link() : "img/flower.png";
             return o;
         });
