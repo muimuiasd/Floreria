@@ -134,7 +134,7 @@ Template.catalogue.events({
         swal("exito", "borrado correctamente", "success");
     },
     "click .btn-flower-update":function(e){
-       
+
             let doc =Flowers.find({"_id" : e.currentTarget.id});
            let flor=doc.map(function (o, i) {
             let img = Images.findOne({
@@ -157,12 +157,21 @@ Template.catalogue.events({
         let categorias = Session.get("CategoriasFlor");
         if (!categorias) categorias = [];
         let name = $("#input-category").val();
-        if (name != "" && !categorias.includes(name)) categorias.push(name);
-        Session.set("CategoriasFlor", categorias);
-        $("#input-category").val("");
-        swal("exito", "categoria añadida a producto", "success");
-        
-    },
+        if (name != "" && !categorias.includes(name)){
+           categorias.push(name);
+          Session.set("CategoriasFlor", categorias);
+          $("#input-category").val("");
+
+          swal("exito", "Categoria añadida a producto.", "success");
+        }else{
+          if(name != ""){
+          swal("error", "Por favor ingrese al menos una categoria.", "error");
+          }
+          if(categorias.includes(name)){
+          swal("error", "Ingreso de categoria ya realizado, porfavor ingrese otra.", "error");
+          }
+        }
+  },
     "click .btn-filter-category": function(e)
     {
         Session.set("FiltroCategoria", e.currentTarget.id);
