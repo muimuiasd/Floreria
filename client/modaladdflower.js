@@ -1,7 +1,10 @@
 Template.modaladdflower.helpers({
     currentFlower()
     {
-        return Session.get("FlorSeleccionada");
+        doc=Session.get("FlorSeleccionada");
+        doc.img=doc.img?doc.img:"img/flower.png"
+        return doc;
+
     },
     categoriasFlor()
     {
@@ -11,14 +14,6 @@ Template.modaladdflower.helpers({
             };
             return cat;
         });
-    },
-    flower()
-    {
-
-        let doc = {};
-        let img;
-        doc.img = img ? img.link() : "img/flower.png";
-        return doc;
     }
 });
 
@@ -100,7 +95,6 @@ Template.modaladdflower.events({
     },
 
     "click .btnBorrar":function(e){
-        console.log("editando categoria");
         let NewCat=[];
         let cont=0;
        let categorias= Session.get("CategoriasFlor");
@@ -114,5 +108,13 @@ Template.modaladdflower.events({
 
         Session.set("CategoriasFlor",NewCat);
         swal("exito", "borrado correctamente", "success");
+    },
+    "click .btnBorrarFoto":function(e){
+        let flower = Session.get("FlorSeleccionada") ? Session.get("FlorSeleccionada") : {};
+        if(flower!={}){
+                flower.img="img/flower.png";
+        }
+        Session.set("FlorSeleccionada",flower);
+
     }
 });

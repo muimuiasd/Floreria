@@ -124,6 +124,9 @@ Template.catalogue.events({
         Session.set("CategoriasFlor", []);
         Session.set("FlorSeleccionada", {});
         $("#input-category").empty();
+       $("#input-flower-ancho").val("");
+       $("#input-flower-alto").val("");
+       $("#input-flower-Price").val("");
     },
     "click .btn-flower-remove":function(e) {
         Meteor.call("RemoveFlower", e.currentTarget.id, function (err, resp) {
