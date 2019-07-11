@@ -26,7 +26,7 @@ Template.modaladdflower.events({
     "click #btnG": function(e)
     {
         let doc = {};
-        let flower = Session.get("ActualFlower") ? Session.get("ActualFlower") : {};
+        let flower = Session.get("FlorSeleccionada") ? Session.get("FlorSeleccionada") : {};
         let name = $("#input-flower-name").val();
         let description = $("#input-flower-description").val();
         let precio= $("#input-flower-Price").val();
@@ -35,6 +35,8 @@ Template.modaladdflower.events({
         doc.description = description;
         doc.precio=precio;
         doc.categorias = categorias;
+        doc.ancho=$("#input-flower-ancho").val();
+        doc.alto=$("#input-flower-alto").val();
 
         if(doc.name!="" ){
             if (doc.description!="" ) {
@@ -78,5 +80,21 @@ Template.modaladdflower.events({
             swal("error", "por favor complete el nombre", "error");
 
         }
+    },
+
+    "click .btnBorrar":function(e){
+        console.log("editando categoria");
+        let NewCat=[];
+        let cont=0;
+       let categorias= Session.get("CategoriasFlor");
+          for (let index = 0; index < categorias.length; index++) {
+            if(categorias[index]!=e.currentTarget.id){
+                console.log(categorias[index])
+                NewCat[cont]=categorias[index];
+                cont++;
+        }
+          }
+console.log(NewCat)
+        Session.set("CategoriasFlor",NewCat);
     }
 });

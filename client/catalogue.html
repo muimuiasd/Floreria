@@ -5,46 +5,46 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>catalogo</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-              crossorigin="anonymous">
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-                crossorigin="anonymous"></script>
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-                crossorigin="anonymous"></script>
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-                crossorigin="anonymous"></script>
-                  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </head>
+
     <body>
 
-    {{>modaladdflower}}
+        {{>modaladdflower}}
 
-    <div class="catalogo article-list">
-        <div class="container">
-            <div class="intro">
-                <h1 class="text-center">Catálogo</h1>
-                <br>
-                <b>Categorías: </b>
-                <div class="row">
-                    {{#each allCategories}}
+        <div class="catalogo article-list">
+            <div class="container">
+                <div class="intro">
+                    <h1 class="text-center">Catálogo</h1>
+                    <br>
+                    <b>Categorías: </b>
+                    <div class="row">
+                        {{#each allCategories}}
                         <div class="btn-filter-category" id="{{name}}"
-                             style="background-color: lightpink; padding: 10px; margin: 5px;"><a><b>{{name}}</b></a>
+                            style="background-color: lightpink; padding: 10px; margin: 5px;"><a><b>{{name}}</b></a>
                         </div>
-                    {{/each}}
-                </div>
-                <hr>
-                {{#if filtro}}
+                        {{/each}}
+                    </div>
+                    <hr>
+                    {{#if filtro}}
                     <h4>Filtrando por: <b>{{filtro}}</b></h4>
                     <button class="btn btn-dark btn-remove-filter">Eliminar filtro</button>
                     <br>
-                {{/if}}
-                <br>
-            </div>
-            <div class="row articles">
-                {{#if idUser}}
+                    {{/if}}
+                    <br>
+                </div>
+                <div class="row articles">
+                    {{#if idUser}}
 
                     <div class="col-sm-6 col-md-4 item">
                         <div class="card form-add-flower" style="background-color:lightpink; width:18rem;">
@@ -59,8 +59,8 @@
                         </div>
                     </div>
 
-                {{/if}}
-                {{#each flowers}}
+                    {{/if}}
+                    {{#each flowers}}
 
                     <div class="col-sm-6 col-md-4 item">
                         <div class="card item-flower" id="{{_id}}" style="width: 18rem;">
@@ -74,17 +74,19 @@
                                 <p class="card-text">{{precio}}</p>
                                 <p class="card-text">Etiquetas: {{categorias}}</p>
                                 {{#if idUser}}
-                                    <a class="btn btn-danger btn-flower-remove" id="{{_id}}">Eliminar</a>
+                                <a class="btn btn-warning btn-flower-update" id="{{_id}}">editar</a>
+                                <a class="btn btn-danger btn-flower-remove" id="{{_id}}">Eliminar</a>
+
                                 {{/if}}
                             </div>
                         </div>
                         <br><br>
                     </div>
 
-                {{/each}}
+                    {{/each}}
+                </div>
             </div>
         </div>
-    </div>
-    <br><br>
+        <br><br>
     </body>
 </template>

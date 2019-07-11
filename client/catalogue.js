@@ -13,6 +13,7 @@ Template.catalogue.rendered = function()
 {
     $(".label-drophelp").hide();
     $("#modal-ingreso-flor").hide();
+    $("#input-category").empty();
 };
 
 Template.catalogue.helpers({
@@ -122,16 +123,35 @@ Template.catalogue.events({
         $("#input-category").val("");
         Session.set("CategoriasFlor", []);
         Session.set("FlorSeleccionada", {});
+        $("#input-category").empty();
     },
-    "click .btn-flower-remove"(e) {
+    "click .btn-flower-remove":function(e) {
         Meteor.call("RemoveFlower", e.currentTarget.id, function (err, resp) {
             if (!err) {
                 console.log("Flor eliminada");
             }
         });
     },
+    "click .btn-flower-update":function(e){
+       
+            let doc =Flowers.find({"_id" : e.currentTarget.id});
+           let flor=doc.map(function (o, i) {
+            let img = Images.findOne({
+                "meta.flowerId": o._id
+            });
+            o.img = img ? img.link() : "img/flower.png";
+            return o;
+        });
+        console.log(flor)
+        Session.set("FlorSeleccionada", flor[0]);
+         Session.set("CategoriasFlor", flor[0].categorias);
+          
+            $("#modal-ingreso-flor").show();
+            $("#input-category").empty();
+    },
     "click #btnC": function (e) {
         $("#modal-ingreso-flor").hide();
+        $("#input-category").empty();
     },
     "click #btn-add-category": function (e) {
         let categorias = Session.get("CategoriasFlor");

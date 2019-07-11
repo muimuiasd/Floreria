@@ -3,28 +3,32 @@
         <div class="modal-dialog-scrollable" style="max-width: 1000px; margin: auto;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <H1 class="text-center">Nueva flor</H1>
+                    <H1 class="text-center"> flor</H1>
                 </div>
                 <div class="modal-body">
                     <div id="topVistaForm" class="container">
                         <form>
                             <div class="form-group">
                                 <label>Nombre de producto </label>
-                                <input type="text" class="form-control" id="input-flower-name" placeholder="Ingrese el nombre">
+                                <input type="text" class="form-control" id="input-flower-name"  value="{{currentFlower.name}}" placeholder="Ingrese el nombre">
                                 <label>Descripción </label>
-                                <input type="text" class="form-control" id="input-flower-description" placeholder="ingrese una Descripción">
+                                <input type="text" class="form-control" id="input-flower-description" value="{{currentFlower.description}}" placeholder="ingrese una Descripción">
                                 <label>Precio </label>
-                                <input type="number"  min="0" class="form-control" id="input-flower-Price" placeholder="Ingrese el precio ">
+                                <input type="number"  min="0" class="form-control" id="input-flower-Price" value="{{currentFlower.precio}}" placeholder="Ingrese el precio ">
                                 <label>Dimensiones (en cm)</label>
-                                <input type="number"  min="0" class="form-control" id="input-flower-ancho" placeholder="Ancho">
-                                <input type="number" class="form-control" id="input-flower-alto" placeholder="Alto">
+                                <input type="number"  min="0" class="form-control" value="{{currentFlower.ancho}}" id="input-flower-ancho" placeholder="Ancho">
+                                <input type="number" class="form-control"  value="{{currentFlower.alto}}" id="input-flower-alto" placeholder="Alto">
                                 <img style="width: 200px;" src="{{flower.img}}" class="card-img-top" alt="imagen no encontrada">
+                            
                             </div>
                             {{#if categoriasFlor}}
                                 <label>Categorías:</label>
                                 {{#each categoriasFlor}}
+
                                     {{nombre}}
+                                    <button id="{{nombre}}" type="button" class="btn btn-danger btnBorrar">Borrar</button>
                                 {{/each}}
+                                
                             {{/if}}
                             <div class="form-group">
                                 <label for="nombre">Agregar categoría </label>
@@ -42,8 +46,6 @@
                             <div style="text-align:center">
                                 <button id="btnG" type="button" class="btn btn-success">Guardar</button>
                                 <button id="btnC" type="button" class="btn btn-light">Cancelar</button>
-                                <button id="btnCa" type="button" class="btn btn-danger">Borrar campos
-                                </button>
                             </div>
                         </div>
                     </div>
