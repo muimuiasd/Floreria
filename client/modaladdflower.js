@@ -41,24 +41,41 @@ Template.modaladdflower.events({
         if(doc.name!="" ){
             if (doc.description!="" ) {
                 if (doc.precio>0){
-                    if (categorias.length>0) {
-                        Meteor.call("AddFlower", flower ? flower._id : false, doc, function (err, resp)
-                        {
-                            if (!err)
-                            {
-                                if (!flower._id)
-                                {
-                                    flower._id = resp;
-                                }
-                            } else console.warn(err);
-                        });
-                        $("#modal-ingreso-flor").hide();
+                    if(doc.ancho>0){
 
+                        if(doc.alto>0){
+                            if (categorias.length>0) {
+                                if($("#input-category").val()==""){
+                                Meteor.call("AddFlower", flower ? flower._id : false, doc, function (err, resp)
+                                {
+                                    if (!err)
+                                    {
+                                        if (!flower._id)
+                                        {
+                                            flower._id = resp;
+                                        }
+                                    } else console.warn(err);
+                                });
+                                $("#modal-ingreso-flor").hide();
+                                swal("exito", "guardado correctamente", "success");
+                            }else{
+                                swal("revise categoria", "favor agregar cat o borrar la entrada", "error");
+        
+                            }
+                            }else{
+        
+                                swal("error", "por favor ingrese al menos una categoria", "error");
+        
+                            }
+                        }else{
+                            swal("error", "por favor ingrese el alto ", "error");
+                        }
                     }else{
 
-                        swal("error", "por favor ingrese al menos una categoria", "error");
-
+                    swal("error", "por favor ingrese el ancho ", "error");
                     }
+                   
+                   
 
 
 
@@ -94,7 +111,8 @@ Template.modaladdflower.events({
                 cont++;
         }
           }
-console.log(NewCat)
+
         Session.set("CategoriasFlor",NewCat);
+        swal("exito", "borrado correctamente", "success");
     }
 });

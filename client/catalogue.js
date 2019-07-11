@@ -131,6 +131,7 @@ Template.catalogue.events({
                 console.log("Flor eliminada");
             }
         });
+        swal("exito", "borrado correctamente", "success");
     },
     "click .btn-flower-update":function(e){
        
@@ -145,7 +146,6 @@ Template.catalogue.events({
         console.log(flor)
         Session.set("FlorSeleccionada", flor[0]);
          Session.set("CategoriasFlor", flor[0].categorias);
-          
             $("#modal-ingreso-flor").show();
             $("#input-category").empty();
     },
@@ -159,6 +159,9 @@ Template.catalogue.events({
         let name = $("#input-category").val();
         if (name != "" && !categorias.includes(name)) categorias.push(name);
         Session.set("CategoriasFlor", categorias);
+        $("#input-category").val("");
+        swal("exito", "categoria añadida a producto", "success");
+        
     },
     "click .btn-filter-category": function(e)
     {
