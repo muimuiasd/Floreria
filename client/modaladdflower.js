@@ -27,6 +27,7 @@ Template.modaladdflower.events({
         let precio= $("#input-flower-Price").val();
         let categorias = Session.get("CategoriasFlor") ? Session.get("CategoriasFlor") : [];
         doc.name = name;
+        doc.img=Session.get("FlorSeleccionada") ? Session.get("FlorSeleccionada") : {};
         doc.description = description;
         doc.precio=precio;
         doc.categorias = categorias;
@@ -52,6 +53,7 @@ Template.modaladdflower.events({
                                     } else console.warn(err);
                                 });
                                 $("#modal-ingreso-flor").hide();
+                                console.log("guardando");
                                 swal("exito", "guardado correctamente", "success");
                             }else{
                                 swal("revise categoria", "favor agregar cat o borrar la entrada", "error");

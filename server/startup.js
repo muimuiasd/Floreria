@@ -1,13 +1,13 @@
 Meteor.startup(function()
 {
-    if (Meteor.users.find().count() == 0)
+    if (Meteor.users.find().count() == 1)
     {
         Accounts.createUser({
-            username: 'admin',
-            email: 'admin@test.com',
-            password: 'test',
+            username: 'Benjamin',
+            email: 'benjamin@laslilas.com',
+            password: 'laslilas2019',
             profile: {
-                name: 'Test Admin'
+                name: 'Benjamin'
             }
         });
     }

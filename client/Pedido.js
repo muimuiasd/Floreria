@@ -32,15 +32,19 @@ Template.Pedido.helpers({
     let doc = Session.get("FiltroFecha");
     if (doc)
     return Pedidos.find({fecha: {$gt: new Date(doc.inicio), $lt: new Date(doc.fin)}});
-    else
-    return Pedidos.find();
+    else{
+console.log(Pedidos.find());
+      return Pedidos.find();
+    }
+
+    
   },
   arrP() {
     let arrProductos = Session.get("ArregloProductos")
     if (arrProductos)
       return arrProductos.map(function (p, i) {
         console.log(p);
-        p.index = i + 1;
+        p.index = i + 1;  
         p.total = p.producto.precio * p.cantidad;
         return p;
       });
@@ -149,6 +153,13 @@ Template.Pedido.events({
             pedidodoc.productos = Session.get("ArregloProductos");
             pedidodoc.fecha = fecha;
             pedidodoc.valorb = "0";
+            let total=0;
+              for (let index = 0; index < pedidodoc.productos.length; index++) {
+                total+= pedidodoc.productos[index].cantidad*pedidodoc.productos[index].producto.precio;
+                
+              }
+              console.log(total);
+              pedidodoc.total=total;
             let pedido = Session.get("PedidoSeleccionado");
             Meteor.call("AddPedido", pedido ? pedido._id : false, pedidodoc, function (err, resp) {
               if (!err) {
