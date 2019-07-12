@@ -1,169 +1,172 @@
 <template name="Pedido">
-  <div class="gestion-pedidos">
+    <div class="gestion-pedidos" style="display:none">
 
-    <div class="btn-back" style="margin-top:30px">
-      <a style="background-color:lightgray; padding: 10px; margin-left: 50px">Regresar la consola</a>
-    </div>
-
-
-    <div align="center">
-      <h1>Lista de pedidos</h1>
-    </div>
-
-    <div id="ConetenidoPedidos" class="container">
-      <div style="margin-left: 50px; margin-bottom: 10px;">
-        <button id="addp" class="btn btn-success">Agregar nuevo pedido</button>
-        <a   href="{{pathFor 'pedidoscsv'}}"  class="btn btn-light btnToPdf"> reporte pedidos </a>
-      </div>
-        <div class="input-group datetimepicker">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-            <input class="set-due-date form-control" type="text"/>
+        <div class="btn-back" style="margin-top:30px">
+            <a style="background-color:lightgray; padding: 10px; margin-left: 50px">Regresar la consola</a>
         </div>
-        <input type="text" name="dates" />
-      <div class="form group">
 
-        <a>Fecha inicio : <input type="text" id="datepicker2"></a>
-          <a>Fecha final : <input type="text" id="datepicker3"></a>
-      </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">cliente</th>
-            <th scope="col">Direccion Envio</th>
-            <th scope="col">fecha</th>
-            <th scope="col">total</th>
-            <th scope="col">editar/borrar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each pedidos}}
-          <tr>
-            <td>{{cliente.nombre}}</td>
-            <td>
-              <div class="row">
-                <div>{{cliente.calleE}}</div>, Nro: <div>{{cliente.numeroE}}</div>,<div>{{cliente.comunasE}}</div>,
-                <div>{{cliente.regionesE}}</div>
-              </div>
-            </td>
-            <td>{{fecha}}</td>
-            <td>{{total}}</td>
-            <td><i class="fas fa-pencil-alt btn-pedido-update" id="{{_id}}"></i>/<i
-                class="fas fa-backspace btn-pedido-delete" id="{{_id}}"></i></td>
 
-          </tr>
-
-          {{/each}}
-
-        </tbody>
-      </table>
-
-    </div>
-  </div>
-
-  <div class="modal" style="background-color: rgba(0,0,0,0.5);" id="modal-ingreso-pedido">
-    <div class="modal-dialog-scrollable"
-      style="max-width: 1000px; display: block; margin-left: auto;margin-right: auto " role="document">
-      <div class="modal-content">
-        <div class="modal-header" align="center">
-          <h2> Pedido </h2>
+        <div align="center">
+            <h1>Lista de pedidos</h1>
         </div>
-        <div class="modal-body">
-          <form id="formPedidos">
-            <div class="container">
 
-
-              <form>
-
-                <div class="form group">
-                  <p>fecha : <input type="text" id="datepicker"></p>
-                </div>
-
-                <div class="form-group">
-                  <label for="seleccionarCliente">Seleccionar Cliente </label>
-                  <select class="form-control" id="seleccionarCliente">
-                    <option value="seleccione">seleccione</option>
-                    {{#each clients}}
-                    <option value="{{_id}}">{{nombre}} {{apellido}} {{email}}</option>
-
-                    {{/each}}
-                  </select>
-                  <label for="InfoClienteString">cliente:</label>
-                  <input type="text" disabled id="InfoClienteString" placeholder="cliente X">
-
-                </div>
-
-                <div class="form-group">
-                  <label for="seleccionarProducto">Seleccionar Producto</label>
-                  <select class="form-control" id="seleccionarProducto">
-                    <option value="seleccione">seleccione</option>
-                    {{#each flowers}}
-                    <option value="{{_id}}">{{name}}, {{description}} </option>
-                    {{/each}}
-                  </select>
-                  <label for="cantidadProductos">Cantidad</label>
-                  <input type="number" min="0" max="999" id="cantidadProductos">
-                  <label for="InfoProductoString">producto:</label>
-                  <input type="text" disabled id="InfoProductoString" placeholder="producto X">
-                </div>
-                <button id="btngap" type="button" class="btn btn-success">agregar</button>
-                <button id="btnGac" type="button" class="btn btn-danger">cancelar</button>
-
-
-              </form>
-
-
-
-              <h3>Detalles de pedido</h3>
-
-              <div>
-                <div class="form-group">
-                  <label for="inputNombreDetalles"> Nombre de cliente: </label>
-                  <label name="nombre" id="inputNombreDetalles"> </label>
-                </div>
-                <div class="form group">
-                  <label> direccion de envio: </label>
-                  <label id="inputdireccionDetalles"></label>
-
-                </div>
-                <div class="form-group">
-                  <table id="tablaCuantica" class="table">
-                    <thead class="thead-dark">
-                      <tr>
-                        <th scope="col">producto</th>
-                        <th scope="col">precio</th>
-                        <th scope="col">cantidad</th>
-                        <th scope="col">sub total</th>
-                      </tr>
-                    </thead>
-                    <tbody id="agregardetalles">
-                      {{#each arrP}}
-                      <tr>
-
-                        <td>{{producto.name}}</td>
-                        <td>{{producto.precio}}</td>
-                        <td>{{cantidad}}</td>
-                        <td>{{total}}</td>
-                      </tr>
-                      {{/each}}
-                    </tbody>
-                  </table>
-                </div>
-
-              </div>
-
-
-              <div align="center">
-                <button id="btnGp" type="button" class="btn btn-success">Guardar</button>
-              </div>
-
+        <div id="ConetenidoPedidos" class="container">
+            <div style="margin-left: 50px; margin-bottom: 10px;">
+                <button id="addp" class="btn btn-success">Agregar nuevo pedido</button>
+                <a href="{{pathFor 'pedidoscsv'}}" class="btn btn-light btnToPdf"> reporte pedidos </a>
             </div>
-          </form>
+            <div class="form group">
+
+                <a>Fecha inicio: <input id="datei" type="date"></a>
+                <a>Fecha final: <input id="datef" type="date"></a>
+            </div>
+            <br>
+            {{#if pedidos}}
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">cliente</th>
+                        <th scope="col">Direccion Envio</th>
+                        <th scope="col">fecha</th>
+                        <th scope="col">total</th>
+                        <th scope="col">editar/borrar</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each pedidos}}
+                        <tr>
+                            <td>{{cliente.nombre}}</td>
+                            <td>
+                                <div class="row">
+                                    <div>{{cliente.calleE}}</div>
+                                    , Nro:
+                                    <div>{{cliente.numeroE}}</div>
+                                    ,
+                                    <div>{{cliente.comunasE}}</div>
+                                    ,
+                                    <div>{{cliente.regionesE}}</div>
+                                </div>
+                            </td>
+                            <td>{{fechaP}}</td>
+                            <td>{{total}}</td>
+                            <td><i class="fas fa-pencil-alt btn-pedido-update" id="{{_id}}"></i>/<i
+                                    class="fas fa-backspace btn-pedido-delete" id="{{_id}}"></i></td>
+
+                        </tr>
+
+                    {{/each}}
+
+                    </tbody>
+                </table>
+            {{else}}
+                <h2>No se encuentran pedidos.</h2>
+            {{/if}}
         </div>
-      </div>
-
-
     </div>
-  </div>
+
+    <div class="modal" style="background-color: rgba(0,0,0,0.5);" id="modal-ingreso-pedido">
+        <div class="modal-dialog-scrollable"
+             style="max-width: 1000px; display: block; margin-left: auto;margin-right: auto " role="document">
+            <div class="modal-content">
+                <div class="modal-header" align="center">
+                    <h2> Pedido </h2>
+                </div>
+                <div class="modal-body">
+                    <form id="formPedidos">
+                        <div class="container">
+
+
+                            <form>
+
+                                <div class="form group">
+                                    <p>Fecha : <input type="date" id="datepicker"></p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="seleccionarCliente">Seleccionar Cliente </label>
+                                    <select class="form-control" id="seleccionarCliente">
+                                        <option value="seleccione">seleccione</option>
+                                        {{#each clients}}
+                                            <option value="{{_id}}">{{nombre}} {{apellido}} {{email}}</option>
+
+                                        {{/each}}
+                                    </select>
+                                    <label for="InfoClienteString">cliente:</label>
+                                    <input type="text" disabled id="InfoClienteString" placeholder="cliente X">
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="seleccionarProducto">Seleccionar Producto</label>
+                                    <select class="form-control" id="seleccionarProducto">
+                                        <option value="seleccione">seleccione</option>
+                                        {{#each flowers}}
+                                            <option value="{{_id}}">{{name}}, {{description}} </option>
+                                        {{/each}}
+                                    </select>
+                                    <label for="cantidadProductos">Cantidad</label>
+                                    <input type="number" min="0" max="999" id="cantidadProductos">
+                                    <label for="InfoProductoString">producto:</label>
+                                    <input type="text" disabled id="InfoProductoString" placeholder="producto X">
+                                </div>
+                                <button id="btngap" type="button" class="btn btn-success">agregar</button>
+                                <button id="btnGac" type="button" class="btn btn-danger">cancelar</button>
+
+
+                            </form>
+
+
+                            <h3>Detalles de pedido</h3>
+
+                            <div>
+                                <div class="form-group">
+                                    <label for="inputNombreDetalles"> Nombre de cliente: </label>
+                                    <label name="nombre" id="inputNombreDetalles"> </label>
+                                </div>
+                                <div class="form group">
+                                    <label> direccion de envio: </label>
+                                    <label id="inputdireccionDetalles"></label>
+
+                                </div>
+                                <div class="form-group">
+                                    <table id="tablaCuantica" class="table">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col">producto</th>
+                                            <th scope="col">precio</th>
+                                            <th scope="col">cantidad</th>
+                                            <th scope="col">sub total</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="agregardetalles">
+                                        {{#each arrP}}
+                                            <tr>
+
+                                                <td>{{producto.name}}</td>
+                                                <td>{{producto.precio}}</td>
+                                                <td>{{cantidad}}</td>
+                                                <td>{{total}}</td>
+                                            </tr>
+                                        {{/each}}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+
+                            <div align="center">
+                                <button id="btnGp" type="button" class="btn btn-success">Guardar</button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
 
 
 </template>
