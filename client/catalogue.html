@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>catalogo</title>
+        <title>Catálogo</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -27,7 +27,7 @@
                 <div class="intro">
                     <h1 class="text-center">Catálogo</h1>
                     {{#if idUser}}
-                    <a   href="{{pathFor 'productocsv'}}"  class="btn btn-light btnToPdf"> reporte productos </a>
+                    <a   href="{{pathFor 'productocsv'}}"  class="btn btn-light btnToPdf"> Reporte de productos </a>
                     {{/if}}
                     <br>
                     <b>Categorías: </b>
@@ -70,14 +70,14 @@
                             <img src="{{img}}" class="card-img-top" alt="imagen no encontrada">
                             <div class="card-body">
                                 <div class="label-drophelp">
-                                    <span>arrastre su imagen aqui</span>
+                                    <span>Arrastre su imagen aquí</span>
                                 </div>
-                                <h5 class="card-title">Nombre: {{name}}</h5>
+                                <h5 class="card-title">{{name}}</h5>
                                 <p class="card-text">{{description}}</p>
-                                <p class="card-text">{{precio}}</p>
+                                <p class="card-text">${{precio}}</p>
                                 <p class="card-text">Etiquetas: {{categorias}}</p>
                                 {{#if idUser}}
-                                <a class="btn btn-warning btn-flower-update" id="{{_id}}">editar</a>
+                                <a class="btn btn-warning btn-flower-update" id="{{_id}}">Editar</a>
                                 <a class="btn btn-danger btn-flower-remove" id="{{_id}}">Eliminar</a>
 
                                 {{/if}}

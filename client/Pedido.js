@@ -28,7 +28,7 @@ Template.Pedido.helpers({
     pedidos() {
         let doc = Session.get("FiltroFecha");
         if (doc)
-            return Pedidos.find({fecha: {$gt: new Date(doc.inicio), $lt: new Date(doc.fin)}}).map(function(p)
+            return Pedidos.find({fecha: {$gte: new Date(doc.inicio), $lte: new Date(doc.fin)}}).map(function(p)
             {
                 p.fechaP = moment(p.fecha).format('DD/MM/YYYY');
                 return p;
@@ -200,7 +200,7 @@ Template.Pedido.events({
     },
     "click .btn-pedido-update": function (e) {// solo rellenar form
         $("#modal-ingreso-pedido").show();
-        let pedido = Pedidos.findOne({"_id": e.currentTarget.id})
+        let pedido = Pedidos.findOne({"_id": e.currentTarget.id});
         Session.set("PedidoSeleccionado", pedido);
         Session.set("ArregloProductos", pedido.productos);
 
