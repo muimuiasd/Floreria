@@ -1,3 +1,9 @@
+Template.admin.rendered = function()
+{
+    $(".gestion-clientes").hide();
+    $(".gestion-pedidos").hide();
+};
+
 Template.admin.helpers({
     idUser()
     {
@@ -50,6 +56,26 @@ Template.admin.events({
                 }
             });
         }
+    },
+    "click .item-module"(e)
+    {
+        let id = e.currentTarget.id;
+        if (id == "modulo-clientes")
+        {
+            $(".dashboard-admin").hide();
+            $(".gestion-clientes").show();
+        }
+        else if (id=="modulo-pedidos")
+        {
+            $(".dashboard-admin").hide();
+            $(".gestion-pedidos").show();
+        }
+        window.scrollTo(0,0);
+    },
+    "click .btn-back"(e)
+    {
+        $(".gestion-clientes").hide();
+        $(".gestion-pedidos").hide();
+        $(".dashboard-admin").show();
     }
-
 });

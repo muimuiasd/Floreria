@@ -1,68 +1,95 @@
 <template name="catalogue">
 
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>catalogo</title>
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </head>
-<body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>catalogo</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    </head>
 
+    <body>
 
-<div class="article-list">
-<div class="container">
-  <div class="intro">
-           <h1 class="text-center">Catálogo</h1>
-            <br> <hr> <br>
-       </div>
-       <div class="row articles">
-    {{#each flowers}}
-    
-    <div class="col-sm-6 col-md-4 item">
-        <div class="card item-flower"  id="{{_id}}" style="width: 18rem;">
-            <img src="{{img}}" class="card-img-top" alt="imagen no encontrada">
-            <div class="card-body">
-                <div class="label-drophelp">
-                    <span>arrastre su imagen aqui</span>
+        {{>modaladdflower}}
+
+        <div class="catalogo article-list">
+            <div class="container">
+                <div class="intro">
+                    <h1 class="text-center">Catálogo</h1>
+                    {{#if idUser}}
+                    <a   href="{{pathFor 'productocsv'}}"  class="btn btn-light btnToPdf"> reporte productos </a>
+                    {{/if}}
+                    <br>
+                    <b>Categorías: </b>
+                    <div class="row">
+                        {{#each allCategories}}
+                        <div class="btn-filter-category" id="{{name}}"
+                            style="background-color: lightpink; padding: 10px; margin: 5px;"><a><b>{{name}}</b></a>
+                        </div>
+                        {{/each}}
+                    </div>
+                    <hr>
+                    {{#if filtro}}
+                    <h4>Filtrando por: <b>{{filtro}}</b></h4>
+                    <button class="btn btn-dark btn-remove-filter">Eliminar filtro</button>
+                    <br>
+                    {{/if}}
+                    <br>
                 </div>
-              <h5 class="card-title">Nombre: {{name}}</h5>
-              <p class="card-text">Descripcion: {{description}}</p>
-              {{#if idUser}}
-              <a class="btn btn-danger btn-flower-remove" id="{{_id}}">Eliminar</a>
-              {{/if}}
+                <div class="row articles">
+                    {{#if idUser}}
+
+                    <div class="col-sm-6 col-md-4 item">
+                        <div class="card form-add-flower" style="background-color:lightpink; width:18rem;">
+                            <div class="card-header">
+                                <h4>Agregar nueva flor</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="button-add-flower">
+                                    <img src="img/add.png" class="card-img-top">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{/if}}
+                    {{#each flowers}}
+
+                    <div class="col-sm-6 col-md-4 item">
+                        <div class="card item-flower" id="{{_id}}" style="width: 18rem;">
+                            <img src="{{img}}" class="card-img-top" alt="imagen no encontrada">
+                            <div class="card-body">
+                                <div class="label-drophelp">
+                                    <span>arrastre su imagen aqui</span>
+                                </div>
+                                <h5 class="card-title">Nombre: {{name}}</h5>
+                                <p class="card-text">{{description}}</p>
+                                <p class="card-text">{{precio}}</p>
+                                <p class="card-text">Etiquetas: {{categorias}}</p>
+                                {{#if idUser}}
+                                <a class="btn btn-warning btn-flower-update" id="{{_id}}">editar</a>
+                                <a class="btn btn-danger btn-flower-remove" id="{{_id}}">Eliminar</a>
+
+                                {{/if}}
+                            </div>
+                        </div>
+                        <br><br>
+                    </div>
+
+                    {{/each}}
+                </div>
             </div>
-          </div>
-          <br><br>
-      </div>
-
-    {{/each}}
-
-
-
-    {{#if idUser}}
-
-<div class="col-sm-6 col-md-4 item">
-        <div class="card form-add-flower" style="background-color:lightpink; width:18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Nueva flor/categoria</h5>
-              <label>Nombre de flor/categoria</label>
-              <input id="input-flower-name"/>
-              <br>
-              <label>Descripción</label>
-              <input id="input-flower-description"/>
-              <a  class="btn btn-link button-add-flower"> <img src="img/add.png" style="width:100%"></a>
-            </div>
-          </div>
-  </div>
-
-    {{/if}}
-
-    </div>
-      </div>
-  </div>
-  <br><br>
-      </body>
+        </div>
+        <br><br>
+    </body>
 </template>

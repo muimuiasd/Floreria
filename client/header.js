@@ -24,10 +24,17 @@ Template.header.events(
         "click #btn-gestionarCliente": function () {
             Router.go("/Cliente");
         },
+        "click #pedido": function () {
+            Router.go("/Pedido");
+         
+        },
         "click #logout": function() {
           Meteor.logout();
+        },
+        "click #categoria": function () {
+            Router.go("/categoria");
+         
         }
-
     }
 );
 Template.home.events(

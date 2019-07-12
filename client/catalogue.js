@@ -12,6 +12,8 @@ Template.catalogue.onCreated(function()
 Template.catalogue.rendered = function()
 {
     $(".label-drophelp").hide();
+    $("#modal-ingreso-flor").hide();
+    $("#input-category").empty();
 };
 
 Template.catalogue.helpers({
@@ -21,14 +23,41 @@ Template.catalogue.helpers({
     },
     flowers()
     {
-        return Flowers.find().map(function (o, i) {
+        let filter=Session.get("FiltroCategoria");
+        let flores = filter ? Flowers.find({"categorias" : filter}) : Flowers.find();
+        return flores.map(function (o, i) {
             let img = Images.findOne({
                 "meta.flowerId": o._id
             });
-
             o.img = img ? img.link() : "img/flower.png";
             return o;
         });
+    },
+    allCategories()
+    {
+        let catArray = [];
+        Flowers.find().map(function(f, i)
+        {
+            let arr = f.categorias;
+            arr.forEach(function(item)
+            {
+                if (!catArray.includes(item))
+                {
+                    catArray.push(item);
+                }
+            });
+        });
+        return catArray.map(function(c)
+        {
+            let cat = {
+                name: c
+            };
+            return cat;
+        });
+    },
+    filtro()
+    {
+        return Session.get("FiltroCategoria");
     }
 });
 
@@ -88,32 +117,70 @@ Template.catalogue.events({
     },
     "click .button-add-flower": function(e)
     {
-        let doc = {};
-        let flower = Session.get("ActualFlower") ? Session.get("ActualFlower") : {};
-        let name = $("#input-flower-name").val();
-        let description = $("#input-flower-description").val();
-
-        doc.name = name;
-        doc.description = description;
-
-        console.log(doc);
-        Meteor.call("AddFlower", flower ? flower._id : false, doc, function (err, resp)
-        {
-            if (!err)
-            {
-                if (!flower._id)
-                {
-                    flower._id = resp;
-                }
-            } else console.warn(err);
-        });
+        $("#modal-ingreso-flor").show();
+        $("#input-flower-name").val("");
+        $("#input-flower-description").val("");
+        $("#input-category").val("");
+        Session.set("CategoriasFlor", []);
+        Session.set("FlorSeleccionada", {});
+        $("#input-category").empty();
+       $("#input-flower-ancho").val("");
+       $("#input-flower-alto").val("");
+       $("#input-flower-Price").val("");
     },
-    "click .btn-flower-remove"(e) {
+    "click .btn-flower-remove":function(e) {
         Meteor.call("RemoveFlower", e.currentTarget.id, function (err, resp) {
             if (!err) {
                 console.log("Flor eliminada");
             }
         });
+        swal("exito", "borrado correctamente", "success");
+    },
+    "click .btn-flower-update":function(e){
+
+            let doc =Flowers.find({"_id" : e.currentTarget.id});
+           let flor=doc.map(function (o, i) {
+            let img = Images.findOne({
+                "meta.flowerId": o._id
+            });
+            o.img = img ? img.link() : "img/flower.png";
+            return o;
+        });
+        console.log(flor)
+        Session.set("FlorSeleccionada", flor[0]);
+         Session.set("CategoriasFlor", flor[0].categorias);
+            $("#modal-ingreso-flor").show();
+            $("#input-category").empty();
+    },
+    "click #btnC": function (e) {
+        $("#modal-ingreso-flor").hide();
+        $("#input-category").empty();
+    },
+    "click #btn-add-category": function (e) {
+        let categorias = Session.get("CategoriasFlor");
+        if (!categorias) categorias = [];
+        let name = $("#input-category").val();
+        if (name != "" && !categorias.includes(name)){
+           categorias.push(name);
+          Session.set("CategoriasFlor", categorias);
+          $("#input-category").val("");
+
+          swal("exito", "Categoria añadida a producto.", "success");
+        }else{
+          if(name != ""){
+          swal("error", "Por favor ingrese al menos una categoria.", "error");
+          }
+          if(categorias.includes(name)){
+          swal("error", "Ingreso de categoria ya realizado, porfavor ingrese otra.", "error");
+          }
+        }
+  },
+    "click .btn-filter-category": function(e)
+    {
+        Session.set("FiltroCategoria", e.currentTarget.id);
+    },
+    "click .btn-remove-filter": function(e)
+    {
+        Session.set("FiltroCategoria", null);
     }
 });
-

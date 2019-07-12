@@ -1,130 +1,49 @@
 <template name="Cliente">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>Ingreso de Clientes</title>
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-      <script src="https://kit.fontawesome.com/5a83c48770.js"></script>
-  </head>
-  <body>
-
-      <H1  class="text-center">Cliente</H1>
-
-      <div id="topVistaForm" class="container" >
-            <form>
-                    <div class="form-group">
-                      <label for="email">Email </label>
-
-                      <input type="email" class="form-control" id="email"  value="{{currentClient.email}}" placeholder="name@ejemplo.com">
-
-                    </div>
-                    <div class="form-group">
-                            <label for="nombre">Nombre </label>
-                            <input type="text" class="form-control" value="{{currentClient.nombre}}" id="nombre" placeholder="ej: Juan">
-                    </div>
-                    <div class="form-group">
-                            <label for="apellido">Apellido </label>
-                            <input type="text" class="form-control"  value="{{currentClient.apellido}}" id="apellido" placeholder="ej: Diaz">
-                    </div>
-
-                    <h2>Dirección Particular</h2>
-                    <div class="form-group">
-                            <div class="form-row">
-                                    <div class="col">
-                                            <label for="calleP">Nombre de calle </label>
-                                            <input type="text" class="form-control" id="calleP" value="{{currentClient.calleP}}" placeholder="ej: juan paulino flores">
-                                    </div>
-                                    <div class="col">
-                                            <label for="numeroP">Número</label>
-                                            <input type="number" class="form-control" id="numeroP" value="{{currentClient.numeroP}}" placeholder="ej: 357">
-                                    </div>
-                                    <div class="col">
-
-                                                    <label for="regionesP"> Región</label>
-                                                    <select class="form-control" id="regionesP"></select>
-
-                                    </div>
-                                    <div class="col">
-                                            <label for="comunasP">Comuna</label>
-                                            <select class="form-control" id="comunasP"></select>
-                                    </div>
-                                  </div>
-                    </div>
-                    <h2>Dirección de envío</h2>
-                    <div class="form-group">
-                            <div class="form-row">
-                                    <div class="col">
-                                            <label for="calleE">Nombre de calle </label>
-                                            <input type="text" class="form-control" id="calleE"  value="{{currentClient.calleE}}" placeholder="ej: juan paulino flores">
-                                    </div>
-                                    <div class="col">
-                                            <label for="numeroE">Número</label>
-                                            <input type="number" class="form-control" id="numeroE" value="{{currentClient.numeroE}}" placeholder="ej: 357">
-                                    </div>
-                                    <div class="col">
-
-                                                    <label for="regionesE"> Región</label>
-                                                    <select class="form-control" id="regionesE"></select>
-
-                                    </div>
-                                    <div class="col">
-                                            <label for="comunasE">Comuna</label>
-                                            <select class="form-control" id="comunasE"></select>
-                                    </div>
-                                  </div>
-                    </div>
-                    <div class="form-group">
-                           <div class="form-row">
-                               <div style="text-align:center">
-                                    <button  id="btnG" type="button" class="btn btn-success">Guardar</button>
-                                    <button  id="btnCa" type="button" class="btn btn-danger">Borrar campos</button>
-                            </div>
-                           </div>
-
-                          </div>
-
-
-             </form>
-
-      </div>
-      <h1 class="text-center">Lista de clientes</h1>
-      <hr>
-      <div class="table-responsive">
-              <table class="table table-striped">
-                      <thead>
+    <div class="gestion-clientes" style="display:none">
+        <div class="btn-back" style="margin-top:30px">
+            <a style="background-color:lightgray; padding: 10px; margin-left: 50px">Regresar la consola</a>
+        </div>
+        {{>modalAddClient}}
+        <div class="html-to-pdf">
+            <h1 class="text-center">Lista de clientes</h1>
+            <hr>
+        
+            <div style="margin-left: 50px; margin-bottom: 10px;">
+                <button id="addC" class="btn btn-success">Agregar nuevo cliente</button>
+                <a   href="{{pathFor 'clientecsv'}}"  class="btn btn-light btnToPdf"> reporte </a>
+            </div>          
+            <div  style="margin-left:50px; margin-right: 50px;">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
                         <tr>
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Apellido</th>
-                          <th scope="col">Email</th>
-                          <th scope="col">Dirección particular</th>
-                          <th scope="col">Dirección de envío</th>
-                          <th scope="col">Editar/Eliminar</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Dirección particular</th>
+                            <th scope="col">Dirección de envío</th>
+                            <th scope="col">Editar/Eliminar</th>
                         </tr>
-                      </thead>
-                      <tbody>
-                                {{#each clients}}
-                        <tr>
-                          <td id="{{_id}}nombre">{{nombre}}</td>
-                          <td id="{{_id}}apellido">{{apellido}}</td>
-                          <td id="{{_id}}email" >{{email}}</td>
-                          <td > <div class="row"> <div id="{{_id}}calleP">{{calleP}}</div>, Nro: <div id="{{_id}}numeroP">{{numeroP}}</div>,<div id="{{_id}}comunasP">{{comunasP}}</div>, <div id="{{_id}}regionesP" >{{regionesP}}</div></div> </td>
-                          <td> <div class="row"> <div id="{{_id}}calleE">{{calleE}}</div>, Nro: <div id="{{_id}}numeroE">{{numeroE}}</div>,<div id="{{_id}}comunasE">{{comunasE}}</div>, <div id="{{_id}}regionesE" >{{regionesE}}</div></div></td>
-                          <td><i class="fas fa-pencil-alt btn-client-update"   id="{{_id}}"></i>/<i class="fas fa-backspace btn-client-delete" id="{{_id}}"></i></td>
-
-                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each clients}}
+                            <tr>
+                                <td id="{{_id}}nombre">{{nombre}}</td>
+                                <td id="{{_id}}apellido">{{apellido}}</td>
+                                <td id="{{_id}}email" >{{email}}</td>
+                                <td > <div class="row"> <div id="{{_id}}calleP">{{calleP}}</div>, Nro: <div id="{{_id}}numeroP">{{numeroP}}</div>,<div id="{{_id}}comunasP">{{comunasP}}</div>, <div id="{{_id}}regionesP" >{{regionesP}}</div></div> </td>
+                                <td> <div class="row"> <div id="{{_id}}calleE">{{calleE}}</div>, Nro: <div id="{{_id}}numeroE">{{numeroE}}</div>,<div id="{{_id}}comunasE">{{comunasE}}</div>, <div id="{{_id}}regionesE" >{{regionesE}}</div></div></td>
+                                <td><i class="fas fa-pencil-alt btn-client-update"   id="{{_id}}"></i>/<i class="fas fa-backspace btn-client-delete" id="{{_id}}"></i></td>
+                            </tr>
                         {{/each}}
-                      </tbody>
+                        </tbody>
                     </table>
-      </div>
+                </div>
+            </div>
+        </div>
+     
+    </div>
 
-
-
-  </body>
 
 
 
