@@ -14,7 +14,9 @@ Template.Pedido.helpers({
         return ClientList.find();
     },
     currentPedido() {
-        return Session.get("PedidoSeleccionado");
+        let pedido = Session.get("PedidoSeleccionado");
+        pedido.fechaF = moment(pedido.fecha).format('YYYY-MM-DD');
+        return pedido;
     },
     flowers() {
         return Flowers.find().map(function (o, i) {
@@ -201,6 +203,11 @@ Template.Pedido.events({
     "click .btn-pedido-update": function (e) {// solo rellenar form
         $("#modal-ingreso-pedido").show();
         let pedido = Pedidos.findOne({"_id": e.currentTarget.id});
+        console.log(pedido);
+        $("#seleccionarCliente").val(pedido.cliente._id);
+        $("#InfoClienteString").val(pedido.cliente.nombre);
+        $("#inputdireccionDetalles").html(pedido.cliente.calleE + pedido.cliente.numeroE + "comuna: " + pedido.cliente.comunasE + "region: " + pedido.cliente.regionesE);
+        $("#inputNombreDetalles").html(pedido.cliente.nombre);
         Session.set("PedidoSeleccionado", pedido);
         Session.set("ArregloProductos", pedido.productos);
 

@@ -79,7 +79,7 @@
                             <form>
 
                                 <div class="form group">
-                                    <p>Fecha : <input type="date" id="datepicker"></p>
+                                    <p>Fecha : <input type="date" value="{{currentPedido.fechaF}}" id="datepicker"></p>
                                 </div>
 
                                 <div class="form-group">
@@ -121,10 +121,10 @@
                             <div>
                                 <div class="form-group">
                                     <label for="inputNombreDetalles"> Nombre de cliente: </label>
-                                    <label name="nombre" id="inputNombreDetalles"> </label>
+                                    <label name="nombre" val="{{currentPedido.cliente.nombre}}" id="inputNombreDetalles"> </label>
                                 </div>
                                 <div class="form group">
-                                    <label> direccion de envio: </label>
+                                    <label> direccion de envio:  </label>
                                     <label id="inputdireccionDetalles"></label>
 
                                 </div>
