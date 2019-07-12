@@ -3,40 +3,45 @@
         <div class="btn-back" style="margin-top:30px">
             <a style="background-color:lightgray; padding: 10px; margin-left: 50px">Regresar la consola</a>
         </div>
-        <h1 class="text-center">Lista de clientes</h1>
-        <hr>
         {{>modalAddClient}}
-        <div style="margin-left: 50px; margin-bottom: 10px;">
-            <button id="addC" class="btn btn-success">Agregar nuevo cliente</button>
-        </div>
-        <div style="margin-left:50px; margin-right: 50px;">
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Dirección particular</th>
-                        <th scope="col">Dirección de envío</th>
-                        <th scope="col">Editar/Eliminar</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {{#each clients}}
+        <div class="html-to-pdf">
+            <h1 class="text-center">Lista de clientes</h1>
+            <hr>
+        
+            <div style="margin-left: 50px; margin-bottom: 10px;">
+                <button id="addC" class="btn btn-success">Agregar nuevo cliente</button>
+                <a   href="{{pathFor 'clientecsv'}}"  class="btn btn-light btnToPdf"> reporte </a>
+            </div>          
+            <div  style="margin-left:50px; margin-right: 50px;">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
                         <tr>
-                            <td id="{{_id}}nombre">{{nombre}}</td>
-                            <td id="{{_id}}apellido">{{apellido}}</td>
-                            <td id="{{_id}}email" >{{email}}</td>
-                            <td > <div class="row"> <div id="{{_id}}calleP">{{calleP}}</div>, Nro: <div id="{{_id}}numeroP">{{numeroP}}</div>,<div id="{{_id}}comunasP">{{comunasP}}</div>, <div id="{{_id}}regionesP" >{{regionesP}}</div></div> </td>
-                            <td> <div class="row"> <div id="{{_id}}calleE">{{calleE}}</div>, Nro: <div id="{{_id}}numeroE">{{numeroE}}</div>,<div id="{{_id}}comunasE">{{comunasE}}</div>, <div id="{{_id}}regionesE" >{{regionesE}}</div></div></td>
-                            <td><i class="fas fa-pencil-alt btn-client-update"   id="{{_id}}"></i>/<i class="fas fa-backspace btn-client-delete" id="{{_id}}"></i></td>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Dirección particular</th>
+                            <th scope="col">Dirección de envío</th>
+                            <th scope="col">Editar/Eliminar</th>
                         </tr>
-                    {{/each}}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        {{#each clients}}
+                            <tr>
+                                <td id="{{_id}}nombre">{{nombre}}</td>
+                                <td id="{{_id}}apellido">{{apellido}}</td>
+                                <td id="{{_id}}email" >{{email}}</td>
+                                <td > <div class="row"> <div id="{{_id}}calleP">{{calleP}}</div>, Nro: <div id="{{_id}}numeroP">{{numeroP}}</div>,<div id="{{_id}}comunasP">{{comunasP}}</div>, <div id="{{_id}}regionesP" >{{regionesP}}</div></div> </td>
+                                <td> <div class="row"> <div id="{{_id}}calleE">{{calleE}}</div>, Nro: <div id="{{_id}}numeroE">{{numeroE}}</div>,<div id="{{_id}}comunasE">{{comunasE}}</div>, <div id="{{_id}}regionesE" >{{regionesE}}</div></div></td>
+                                <td><i class="fas fa-pencil-alt btn-client-update"   id="{{_id}}"></i>/<i class="fas fa-backspace btn-client-delete" id="{{_id}}"></i></td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+     
     </div>
 
 

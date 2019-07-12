@@ -28,3 +28,5 @@ tsega:bootstrap3-datetimepicker
 hujhax:bootstrap3-datetimepicker
 jquery
 momentjs:moment
+pascoual:pdfkit
+pascoual:pdfjs

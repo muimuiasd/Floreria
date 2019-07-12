@@ -26,6 +26,9 @@
             <div class="container">
                 <div class="intro">
                     <h1 class="text-center">Catálogo</h1>
+                    {{#if idUser}}
+                    <a   href="{{pathFor 'productocsv'}}"  class="btn btn-light btnToPdf"> reporte productos </a>
+                    {{/if}}
                     <br>
                     <b>Categorías: </b>
                     <div class="row">

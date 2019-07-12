@@ -1,3 +1,4 @@
+
 var RegionesYcomunas = {
 
     "regiones": [{
@@ -98,6 +99,7 @@ function setearComunasSegunRegion1() {
     });
     jQuery('#comunasE').html(htmlComuna);
 }
+
 // segun direccion particular
 function setearComunasSegunRegion2() {
 
@@ -150,6 +152,9 @@ Template.Cliente.helpers({
     },
     currentClient() {
         return Session.get("ClienteSeleccionado");
+    },
+    path(){
+        return
     }
 });
 
